@@ -430,7 +430,7 @@ class OaiPmhController extends AbstractController
 
             // access storagePid from TypoScript
             $pageSettings = $this->configurationManager->getConfiguration($this->configurationManager::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-            $storagePid = $pageSettings["plugin."]["tx_dlf."]["persistence."]["storagePid"];
+            $storagePid = $pageSettings["plugin."]["tx_dlf."]["persistence."]["storagePid"] ?? 0;
             if ($storagePid > 0) {
                 $this->logger->notice('No records found with PID ' . $storagePid);
             } else {
