@@ -2,6 +2,9 @@
 
 # Adopted/reduced from https://github.com/TYPO3/typo3/blob/f6d73fea5a8f3a5cd8537e29308f18bec65a0c92/Build/Scripts/runTests.sh
 
+# Use `export DOCKER_COMPOSE=docker-compose" for older versions of Docker.
+DOCKER_COMPOSE=${DOCKER_COMPOSE-docker compose}
+
 # Function to write a .env file in Build/Test
 # This is read by docker compose and vars defined here are
 # used in Build/Test/docker-compose.yml
@@ -278,9 +281,9 @@ fi
 case ${TEST_SUITE} in
     composerInstall)
         setUpDockerComposeDotEnv
-        docker compose run composer_install
+        $DOCKER_COMPOSE run composer_install
         SUITE_EXIT_CODE=$?
-        docker compose down
+        $DOCKER_COMPOSE down
         ;;
     functional)
         handleDbmsAndDriverOptions
@@ -288,7 +291,7 @@ case ${TEST_SUITE} in
         case ${DBMS} in
             mariadb|mysql)
                 echo "Using driver: ${DATABASE_DRIVER}"
-                docker compose run functional
+                $DOCKER_COMPOSE run functional
                 SUITE_EXIT_CODE=$?
                 ;;
             *)
@@ -297,13 +300,13 @@ case ${TEST_SUITE} in
                 echo "call \".Build/Test/runTests.sh -h\" to display help and valid options" >&2
                 exit 1
         esac
-        docker compose down
+        $DOCKER_COMPOSE down
         ;;
     unit)
         setUpDockerComposeDotEnv
-        docker compose run unit
+        $DOCKER_COMPOSE run unit
         SUITE_EXIT_CODE=$?
-        docker compose down
+        $DOCKER_COMPOSE down
         ;;
     update)
         # pull typo3/core-testing-*:latest versions of those ones that exist locally
