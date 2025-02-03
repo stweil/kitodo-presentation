@@ -6,6 +6,26 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+    inputs:
+      typo3:
+        description: 'TYPO3 version (11.5, 12.4, 13.4)'
+        required: true
+        default: '11.5'
+        type: choice
+        options:
+          - '11.5'
+          - '12.4'
+          - '13.4'
+      php:
+        description: 'PHP version (8.1, 8.2, 8.3, 8.4)'
+        required: true
+        default: '8.1'
+        type: choice
+        options:
+          - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
 
 jobs:
   test:
@@ -13,19 +33,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        variants: [ {typo3: 11.5, php: 8.1}, {typo3: 12.4, php: 8.1}, {typo3: 11.5, php: 8.3}, {typo3: 12.4, php: 8.4}  ]
+        typo3: [ 11.5, 12.4 ]
+        php: [ 8.1, 8.2, 8.3, 8.4 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: Build/Test/runTests.sh -s composerInstall -t ${{ matrix.variants.typo3 }} -p ${{ matrix.variants.php }}
+        run: Build/Test/runTests.sh -s composerInstall -t ${{ matrix.typo3 }} -p ${{ matrix.php }}
 
       - name: Run unit tests
-        run: Build/Test/runTests.sh -s unit -p ${{ matrix.variants.php }}
+        run: Build/Test/runTests.sh -s unit -p ${{ matrix.php }}
 
       - name: Run functional tests
-        run: Build/Test/runTests.sh -s functional -p ${{ matrix.variants.php }}
+        run: Build/Test/runTests.sh -s functional -p ${{ matrix.php }}
 
       - name: Upload coverage reports
         uses: codecov/codecov-action@v4
