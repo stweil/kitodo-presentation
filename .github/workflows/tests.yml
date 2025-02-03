@@ -10,10 +10,9 @@ on:
       typo3:
         description: 'TYPO3 version (12.4, 13.4)'
         required: true
-        default: '11.5'
+        default: '12.4'
         type: choice
         options:
-          - '11.5'
           - '12.4'
           - '13.4'
       php:
