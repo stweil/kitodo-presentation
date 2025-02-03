@@ -48,7 +48,7 @@
     "fluidtypo3/vhs": "^7.0",
     "phpstan/phpstan": "^1.12",
     "phpunit/phpunit": "^10.1",
-    "spatie/phpunit-watcher": "^1.23",
+    "spatie/phpunit-watcher": "^1.24",
     "typo3/cms-backend": "^12.4|^13.4",
     "typo3/cms-fluid": "^12.4|^13.4",
     "typo3/cms-fluid-styled-content": "^12.4|^13.4",
