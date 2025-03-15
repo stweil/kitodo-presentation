@@ -48,6 +48,15 @@
         <earliestDatestamp>{oaiIdentifyInfo.earliestDatestamp}</earliestDatestamp>
         <deletedRecord>transient</deletedRecord>
         <granularity>YYYY-MM-DDThh:mm:ssZ</granularity>
+        <description>
+          <friends
+              xmlns="http://www.openarchives.org/OAI/2.0/friends/"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/friends/
+             http://www.openarchives.org/OAI/2.0/friends.xsd">
+            <baseURL>https://digi.bib.uni-mannheim.de/oai</baseURL>
+          </friends>
+        </description>
     </Identify>
 </f:section>
 
