@@ -41,7 +41,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  * @method Document|null findOneByIndexName(string $indexName) Get a document by its index name
  * @method Document|null findOneByLocation(string $location) Get a document by its XML location
  */
-class DocumentRepository extends Repository
+class DocumentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
     /**
      * @access protected
