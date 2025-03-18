@@ -335,12 +335,8 @@ class BasketController extends AbstractController
         $this->loadDocument($id);
         if (isset($this->document)) {
             // replace url param placeholder
-            // TODO: Parameter #2 $replace of function str_replace expects array|string, int given.
-            // @phpstan-ignore-next-line
             $urlParams = str_replace("##page##", (int) ($data['page'] ?? ''), $this->settings['pdfparams']);
             $urlParams = str_replace("##docId##", $this->document->getRecordId(), $urlParams);
-            // TODO: Parameter #2 $replace of function str_replace expects array|string, int given.
-            // @phpstan-ignore-next-line
             $urlParams = str_replace("##startpage##", (int) $data['startpage'], $urlParams);
             if ($data['startpage'] != $data['endpage']) {
                 $urlParams = str_replace("##endpage##", $data['endpage'] === "" ? "" : (int) $data['endpage'], $urlParams);
@@ -457,8 +453,6 @@ class BasketController extends AbstractController
             if (!in_array($arrayKey, $items)) {
                 $items[$arrayKey] = $documentItem;
                 // replace url param placeholder
-                // TODO: Parameter #2 $replace of function str_replace expects array|string, int given.
-                // @phpstan-ignore-next-line
                 $pdfParams = str_replace("##startpage##", $documentItem['startpage'], $this->settings['pdfparams']);
                 $pdfParams = str_replace("##docId##", $this->document->getRecordId(), $pdfParams);
                 $pdfParams = str_replace("##startx##", $documentItem['startX'], $pdfParams);
