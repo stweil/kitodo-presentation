@@ -319,8 +319,6 @@ final class IiifManifest extends AbstractDocument
         $resource = $this->iiif->getContainedResourceById($id);
         if (isset($resource)) {
             if ($resource instanceof CanvasInterface) {
-                // TODO: Cannot call method getSingleService() on array<Ubl\Iiif\Presentation\Common\Model\Resources\AnnotationInterface>.
-                // @phpstan-ignore-next-line
                 return (!empty($resource->getImageAnnotations()) && $resource->getImageAnnotations()->getSingleService() != null) ? $resource->getImageAnnotations()[0]->getSingleService()->getId() : $id;
             } elseif ($resource instanceof ContentResourceInterface) {
                 return $resource->getSingleService() instanceof Service ? $resource->getSingleService()->getId() : $id;
@@ -380,9 +378,7 @@ final class IiifManifest extends AbstractDocument
         } else {
             $logUnits[] = $this->iiif;
         }
-        // TODO: Variable $logUnits in empty() always exists and is not falsy.
-        // @phpstan-ignore-next-line
-        if (!empty($logUnits)) {
+        if (!empty($logUnits)) { // TODO: always true
             if (!$recursive) {
                 $details = $this->getLogicalStructureInfo($logUnits[0]);
             } else {
