@@ -121,7 +121,6 @@ class MetadataController extends AbstractController
         if (!$metadata || ($this->settings['rootline'] == 1 && $metadata[0]['_id'] != $topLevelId)) {
             $data = [];
             if ($this->useOriginalIiifManifestMetadata) {
-                // @phpstan-ignore-next-line
                 $data = $this->currentDocument->getManifestMetadata($topLevelId);
             } else {
                 $data = $this->currentDocument->getToplevelMetadata();
@@ -529,7 +528,6 @@ class MetadataController extends AbstractController
     {
         foreach ($id as $sid) {
             if ($this->useOriginalIiifManifestMetadata) {
-                // @phpstan-ignore-next-line
                 $data = $this->currentDocument->getManifestMetadata($sid);
             } else {
                 $data = $this->currentDocument->getMetadata($sid);

@@ -88,14 +88,13 @@ class SearchInDocument implements MiddlewareInterface
         if ($this->solr->ready) {
             $result = $this->executeSolrQuery($parameters);
             /** @scrutinizer ignore-call */
-            $output['numFound'] = $result->getNumFound(); // @phpstan-ignore-line
+            $output['numFound'] = $result->getNumFound();
             $data = $result->getData();
             $highlighting = $data['ocrHighlighting'];
 
             $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
             $site = $siteFinder->getSiteByPageId((int) $parameters['pid']);
 
-            // @phpstan-ignore-next-line
             foreach ($result as $record) {
                 $resultDocument = new ResultDocument($record, $highlighting, $this->fields);
 
