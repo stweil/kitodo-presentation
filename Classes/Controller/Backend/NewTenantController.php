@@ -454,7 +454,6 @@ class NewTenantController extends AbstractController
      *
      * @return void
      */
-    // @phpstan-ignore-next-line
     public function errorAction(): ResponseInterface
     {
         return $this->htmlResponse();
