@@ -751,8 +751,6 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             }
             $result = $solr->service->createResult($selectQuery, $response);
 
-            // TODO: Call to an undefined method Solarium\Core\Query\Result\ResultInterface::getGrouping().
-            // @phpstan-ignore-next-line
             $uidGroup = $result->getGrouping()->getGroup('uid');
             $resultSet['numberOfToplevels'] = $uidGroup->getNumberOfGroups();
             $resultSet['numFound'] = $uidGroup->getMatches();
