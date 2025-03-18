@@ -82,7 +82,6 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
         $childContent = (string) $this->renderChildren();
 
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-        // @phpstan-ignore-next-line
         $uriBuilder->setRequest($request);
 
         if (!empty($this->arguments['pageUid'])) {
