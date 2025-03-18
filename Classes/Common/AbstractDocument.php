@@ -579,8 +579,6 @@ abstract class AbstractDocument
         if ($documentFormat == 'METS') {
             $instance = new MetsDocument($pid, $location, $xml, $settings);
         } elseif ($documentFormat == 'IIIF') {
-            // TODO: Parameter $preloadedDocument of class Kitodo\Dlf\Common\IiifManifest constructor expects SimpleXMLElement|Ubl\Iiif\Presentation\Common\Model\Resources\IiifResourceInterface, Ubl\Iiif\Presentation\Common\Model\AbstractIiifEntity|null given.
-            // @phpstan-ignore-next-line
             $instance = new IiifManifest($pid, $location, $iiif);
         }
 
@@ -673,7 +671,7 @@ abstract class AbstractDocument
                 Helper::log('No document with UID ' . $uid . ' found or document not accessible', LOG_SEVERITY_WARNING);
             }
         } else {
-            Helper::log('Invalid UID ' . $uid . ' for document', LOG_SEVERITY_ERROR);
+            Helper::error('Invalid UID ' . $uid . ' for document');
         }
         return $title;
     }
@@ -1039,8 +1037,6 @@ abstract class AbstractDocument
     {
         if (!$this->rootIdLoaded) {
             if ($this->parentId) {
-                // TODO: Parameter $location of static method AbstractDocument::getInstance() expects string, int<min, -1>|int<1, max> given.
-                // @phpstan-ignore-next-line
                 $parent = self::getInstance($this->parentId, ['storagePid' => $this->pid]);
                 $this->rootId = $parent->rootId;
             }

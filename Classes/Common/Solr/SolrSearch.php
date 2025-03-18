@@ -667,7 +667,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
         // Instantiate search object.
         $solr = Solr::getInstance($this->settings['solrcore']);
         if (!$solr->ready) {
-            Helper::log('Apache Solr not available', LOG_SEVERITY_ERROR);
+            Helper::error('Apache Solr not available');
             return [
                 'documents' => [],
                 'numberOfToplevels' => 0,
@@ -739,8 +739,6 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             }
             $result = $solr->service->createResult($selectQuery, $response);
 
-            // TODO: Call to an undefined method Solarium\Core\Query\Result\ResultInterface::getGrouping().
-            // @phpstan-ignore-next-line
             $uidGroup = $result->getGrouping()->getGroup('uid');
             $resultSet['numberOfToplevels'] = $uidGroup->getNumberOfGroups();
             $resultSet['numFound'] = $uidGroup->getMatches();

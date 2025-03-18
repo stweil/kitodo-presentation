@@ -34,6 +34,19 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 
+if (!defined('LOG_SEVERITY_OK')) {
+    define('LOG_SEVERITY_OK', -1);
+}
+if (!defined('LOG_SEVERITY_INFO')) {
+    define('LOG_SEVERITY_INFO', 0);
+}
+if (!defined('LOG_SEVERITY_NOTICE')) {
+    define('LOG_SEVERITY_NOTICE', 1);
+}
+if (!defined('LOG_SEVERITY_WARNING')) {
+    define('LOG_SEVERITY_WARNING', 2);
+}
+
 /**
  * Helper class for the 'dlf' extension
  *
@@ -150,8 +163,6 @@ class Helper
                 if (!preg_match('/\d{8}-\d{1}/i', $id)) {
                     return false;
                 } elseif ($checksum == 10) {
-                    //TODO: Binary operation "+" between string and 1 results in an error.
-                    // @phpstan-ignore-next-line
                     return self::checkIdentifier(($digits + 1) . substr($id, -2, 2), 'SWD');
                 } elseif (substr($id, -1, 1) != $checksum) {
                     return false;
@@ -209,18 +220,18 @@ class Helper
             !in_array(self::$cipherAlgorithm, openssl_get_cipher_methods(true))
             || !in_array(self::$hashAlgorithm, openssl_get_md_methods(true))
         ) {
-            self::log('OpenSSL library doesn\'t support cipher and/or hash algorithm', LOG_SEVERITY_ERROR);
+            self::error('OpenSSL library doesn\'t support cipher and/or hash algorithm');
             return false;
         }
         if (empty(self::getEncryptionKey())) {
-            self::log('No encryption key set in TYPO3 configuration', LOG_SEVERITY_ERROR);
+            self::error('No encryption key set in TYPO3 configuration');
             return false;
         }
         if (
             empty($encrypted)
             || strlen($encrypted) < openssl_cipher_iv_length(self::$cipherAlgorithm)
         ) {
-            self::log('Invalid parameters given for decryption', LOG_SEVERITY_ERROR);
+            self::error('Invalid parameters given for decryption');
             return false;
         }
         // Split initialisation vector and encrypted data.
@@ -258,15 +269,17 @@ class Helper
         if (\PHP_VERSION_ID < 80000) {
             // Disables the functionality to allow external entities to be loaded when parsing the XML, must be kept
             $previousValueOfEntityLoader = libxml_disable_entity_loader(true);
-        }
 
-        // Try to load XML from file.
-        $xml = simplexml_load_string($content);
+            // Try to load XML from file.
+            $xml = simplexml_load_string($content);
 
-        if (\PHP_VERSION_ID < 80000) {
             // reset entity loader setting
             libxml_disable_entity_loader($previousValueOfEntityLoader);
+        } else {
+            // Try to load XML from file.
+            $xml = simplexml_load_string($content);
         }
+
         // Reset libxml's error logging.
         libxml_use_internal_errors($libxmlErrors);
         return $xml;
@@ -289,7 +302,7 @@ class Helper
         $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(get_called_class());
 
         switch ($severity) {
-            case 0:
+            case LOG_SEVERITY_INFO:
                 $logger->info($message);
                 break;
             case 1:
@@ -306,6 +319,12 @@ class Helper
         }
     }
 
+    public static function error(string $message): void
+    {
+        $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(get_called_class());
+        $logger->error($message);
+    }
+
     /**
      * Digest the given string
      *
@@ -320,7 +339,7 @@ class Helper
     public static function digest(string $string)
     {
         if (!in_array(self::$hashAlgorithm, openssl_get_md_methods(true))) {
-            self::log('OpenSSL library doesn\'t support hash algorithm', LOG_SEVERITY_ERROR);
+            self::error('OpenSSL library doesn\'t support hash algorithm');
             return false;
         }
         // Hash string.
@@ -344,11 +363,11 @@ class Helper
             !in_array(self::$cipherAlgorithm, openssl_get_cipher_methods(true))
             || !in_array(self::$hashAlgorithm, openssl_get_md_methods(true))
         ) {
-            self::log('OpenSSL library doesn\'t support cipher and/or hash algorithm', LOG_SEVERITY_ERROR);
+            self::error('OpenSSL library doesn\'t support cipher and/or hash algorithm');
             return false;
         }
         if (empty(self::getEncryptionKey())) {
-            self::log('No encryption key set in TYPO3 configuration', LOG_SEVERITY_ERROR);
+            self::error('No encryption key set in TYPO3 configuration');
             return false;
         }
         // Generate random initialization vector.
@@ -430,7 +449,7 @@ class Helper
             // NOTE: Only use tables that don't have too many entries!
             || !in_array($table, ['tx_dlf_collections', 'tx_dlf_libraries', 'tx_dlf_metadata', 'tx_dlf_metadatasubentries', 'tx_dlf_structures', 'tx_dlf_solrcores'])
         ) {
-            self::log('Invalid UID "' . $uid . '" or table "' . $table . '"', LOG_SEVERITY_ERROR);
+            self::error('Invalid UID "' . $uid . '" or table "' . $table . '"');
             return '';
         }
 
@@ -565,7 +584,7 @@ class Helper
             $uri = new Uri($url);
             return !empty($uri->getScheme());
         } catch (\InvalidArgumentException $e) {
-            self::log($e->getMessage(), LOG_SEVERITY_ERROR);
+            self::error($e->getMessage());
             return false;
         }
     }
@@ -617,7 +636,7 @@ class Helper
             }
             return $dataHandler->substNEWwithIDs;
         } else {
-            self::log('Current backend user has no admin privileges', LOG_SEVERITY_ERROR);
+            self::error('Current backend user has no admin privileges');
             return [];
         }
     }
@@ -832,7 +851,7 @@ class Helper
                 ->expr()
                 ->eq($table . '.' . $GLOBALS['TCA'][$table]['ctrl']['delete'], 0);
         } else {
-            self::log('Unexpected application type (neither frontend or backend)', LOG_SEVERITY_ERROR);
+            self::error('Unexpected application type (neither frontend or backend)');
             return '1=-1';
         }
     }
