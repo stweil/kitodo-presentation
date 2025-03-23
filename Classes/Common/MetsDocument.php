@@ -1768,9 +1768,10 @@ final class MetsDocument extends AbstractDocument
         $xml = Helper::getXmlFileAsString($this->asXML);
         if ($xml !== false) {
             $this->asXML = '';
-            $this->xml = $xml;
             // Rebuild the unserializable properties.
+            $this->setPreloadedDocument($xml);
             $this->init('', $this->settings);
+            $this->establishRecordId($this->pid);
         } else {
             $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(static::class);
             $this->logger->error('Could not load XML after deserialization');
