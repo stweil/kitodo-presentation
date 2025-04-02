@@ -14,10 +14,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Permissions
+        run: |
+           git config --global --add safe.directory /app
+
       - name: Install dependencies
         uses: php-actions/composer@v6
         with:
           command: update
+
+      - name: Check permissions
+        run: |
+           ls -la /app || true
 
       - name: PHPStan Static Analysis
         uses: php-actions/phpstan@v3
