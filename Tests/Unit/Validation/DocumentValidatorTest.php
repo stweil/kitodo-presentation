@@ -64,6 +64,20 @@ class DocumentValidatorTest extends UnitTestCase
     /**
      * @test
      */
+    public function passesHasNotMandatoryMetadataFieldsButType()
+    {
+        $metadata = [
+            'type' => [
+                'chapter'
+            ]
+        ];
+        $documentValidator = new DocumentValidator($metadata, $this->getRequiredMetadataFields());
+        self::assertTrue($documentValidator->hasAllMandatoryMetadataFields());
+    }
+
+    /**
+     * @test
+     */
     public function notPassesHasAllMandatoryMetadataFields()
     {
         $metadata = [
