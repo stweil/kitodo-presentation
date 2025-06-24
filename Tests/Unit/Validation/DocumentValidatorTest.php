@@ -69,6 +69,9 @@ class DocumentValidatorTest extends UnitTestCase
         $metadata = [
             'type' => [
                 'chapter'
+            ],
+            'is_administrative' => [
+                false
             ]
         ];
         $documentValidator = new DocumentValidator($metadata, $this->getRequiredMetadataFields());
