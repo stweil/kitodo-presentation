@@ -423,7 +423,7 @@ class NewTenantController extends AbstractController
     {
         $recordInfos = [];
 
-        if ($this->pageInfo['doktype'] != 254) {
+        if (!isset($this->pageInfo['doktype']) || $this->pageInfo['doktype'] != 254) {
             $this->forward('error');
         }
 
