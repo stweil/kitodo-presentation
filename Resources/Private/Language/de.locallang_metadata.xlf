@@ -55,7 +55,7 @@
             </trans-unit>
             <trans-unit id="metadata.opac_id" approved="yes">
                 <source><![CDATA[OPAC Identifier]]></source>
-                <target><![CDATA[OPAC-Identifier]]></target>
+                <target><![CDATA[OPAC-Kennung]]></target>
             </trans-unit>
             <trans-unit id="metadata.out_of_print" approved="yes">
                 <source><![CDATA[Out Of Print Works]]></source>
@@ -79,7 +79,7 @@
             </trans-unit>
             <trans-unit id="metadata.record_id" approved="yes">
                 <source><![CDATA[OAI Identifier]]></source>
-                <target><![CDATA[OAI-Identifier]]></target>
+                <target><![CDATA[OAI-Kennung]]></target>
             </trans-unit>
             <trans-unit id="metadata.restrictions" approved="yes">
                 <source><![CDATA[Restrictions on Access]]></source>
@@ -107,7 +107,7 @@
             </trans-unit>
             <trans-unit id="metadata.union_id" approved="yes">
                 <source><![CDATA[Union Catalog ID]]></source>
-                <target><![CDATA[Verbund-Identifier]]></target>
+                <target><![CDATA[Verbundkatalog-Kennung]]></target>
             </trans-unit>
             <trans-unit id="metadata.urn" approved="yes">
                 <source><![CDATA[URN]]></source>
