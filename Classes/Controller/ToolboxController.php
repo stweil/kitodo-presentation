@@ -338,7 +338,7 @@ class ToolboxController extends AbstractController
     private function getFile(int $page, array $fileGrps): array
     {
         $file = [];
-        $physicalStructureInfo = $this->currentDocument->physicalStructureInfo[$this->currentDocument->physicalStructure[$page]] ?? null;
+        $physicalStructureInfo = $this->currentDocument->physicalStructureInfo[$this->currentDocument->physicalStructure[$page] ?? null] ?? null;
         while ($fileGrp = @array_pop($fileGrps)) {
             if (isset($physicalStructureInfo['files'][$fileGrp])) {
                 $fileId = $physicalStructureInfo['files'][$fileGrp];
