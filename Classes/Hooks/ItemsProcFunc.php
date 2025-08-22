@@ -81,7 +81,7 @@ class ItemsProcFunc implements LoggerAwareInterface
         }
 
         try {
-            $ts = $objectManager->get(TemplateService::class, [$siteRootRow['uid']]);
+            $ts = $objectManager->get(TemplateService::class, [$siteRootRow['uid'] ?? false]);
             $ts->rootLine = $rootLine;
             $ts->runThroughTemplates($rootLine, 0);
             $ts->generateConfig();
