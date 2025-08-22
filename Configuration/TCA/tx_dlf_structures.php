@@ -83,7 +83,8 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
-                'eval' => 'required,trim',
+                'eval' => 'trim',
+                'required' => true,
                 'default' => '',
             ],
         ],
@@ -95,7 +96,8 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
-                'eval' => 'required,nospace,alphanum_x,uniqueInPid',
+                'eval' => 'nospace,alphanum_x,uniqueInPid',
+                'required' => true,
                 'default' => '',
                 'fieldInformation' => [
                     'editInProductionWarning' => [
