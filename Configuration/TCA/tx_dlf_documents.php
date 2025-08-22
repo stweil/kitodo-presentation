@@ -118,7 +118,8 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
-                'eval' => 'required,uniqueInPid',
+                'eval' => 'uniqueInPid',
+                'required' => true,
                 'default' => '',
             ],
         ],
@@ -258,7 +259,6 @@ return [
             'label' => 'LLL:EXT:dlf/Resources/Private/Language/locallang_labels.xlf:tx_dlf_documents.partof',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_dlf_documents',
                 'prepend_tname' => 0,
                 'size' => 1,
