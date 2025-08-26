@@ -38,7 +38,7 @@
     "typo3/cms-tstemplate": "^11.5|^12.4|^13.4",
     "caseyamcl/phpoaipmh": "^3.3",
     "slub/php-mods-reader": "^0.4",
-    "ubl/php-iiif-prezi-reader": "0.3",
+    "ubl/php-iiif-prezi-reader": "^0.3.1",
     "solarium/solarium": "^6.3",
     "softcreatr/jsonpath": "^0.10"
   },
@@ -124,6 +124,12 @@
     "allow-plugins": {
       "typo3/class-alias-loader": true,
       "typo3/cms-composer-installers": true
+    }
+  },
+  "repositories": {
+    "ubl": {
+      "type": "git",
+      "url": "https://github.com/kitodo/php-iiif-prezi-reader.git"
     }
   }
 }
