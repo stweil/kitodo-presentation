@@ -134,6 +134,12 @@ abstract class AbstractController extends ActionController implements LoggerAwar
             }
         }
 
+        if (GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() >= 12) {
+            if ($request->getAttribute('applicationType') === 1) {
+                $this->pageUid = $request->getAttribute('routing')->getPageId();
+            }
+        }
+
         // Sanitize user input to prevent XSS attacks.
         $this->sanitizeRequestData();
 
