@@ -53,7 +53,7 @@ class SearchSuggest implements MiddlewareInterface
         }
 
         $output = [];
-        $solrCore = (string) $parameters['solrcore'];
+        $solrCore = (string) ($parameters['solrcore'] ?? '');
         $uHash = (string) $parameters['uHash'];
         if (hash_equals(GeneralUtility::hmac((string) (new Typo3Version()) . Environment::getExtensionsPath(), 'SearchSuggest'), $uHash) === false) {
             throw new \InvalidArgumentException('No valid parameter passed!', 1580585079);
