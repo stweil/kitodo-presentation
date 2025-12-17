@@ -33,7 +33,7 @@ class MetadataController extends AbstractController
 {
     /**
      * @access private
-     * @var AbstractDocument
+     * @var IiifManifest
      */
     private $currentDocument;
 
