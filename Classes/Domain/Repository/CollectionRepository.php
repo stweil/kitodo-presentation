@@ -35,7 +35,7 @@ class CollectionRepository extends Repository
 {
     /**
      * @access protected
-     * @var array Set the default ordering. This is applied to findAll(), too.
+     * @var array<non-empty-string, 'ASC'|'DESC'> Set the default ordering. This is applied to findAll(), too.
      */
     protected $defaultOrderings = [
         'label' => QueryInterface::ORDER_ASCENDING,
