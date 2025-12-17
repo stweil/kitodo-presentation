@@ -37,7 +37,7 @@ class CollectionRepository extends Repository
 {
     /**
      * @access protected
-     * @var array Set the default ordering. This is applied to findAll(), too.
+     * @var array<non-empty-string, 'ASC'|'DESC'> Set the default ordering. This is applied to findAll(), too.
      */
     // TODO: PHPDoc type array of property CollectionRepository::$defaultOrderings is not covariant with 'ASC'|'DESC'> of overridden property TYPO3\CMS\Extbase\Persistence\Repository::$defaultOrderings.
     // @phpstan-ignore-next-line
