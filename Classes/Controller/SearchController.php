@@ -136,22 +136,7 @@ class SearchController extends AbstractController
 
         $this->search = is_array($this->search) ? $this->search : [];
 
-        // sanitize date search input
-        if (array_key_exists('dateFrom', $this->search) || array_key_exists('dateTo', $this->search)) {
-            if (!array_key_exists('dateFrom', $this->search) && array_key_exists('dateTo', $this->search)) {
-                $this->search['dateFrom'] = '*';
-            }
-
-            if (!array_key_exists('dateTo', $this->search) && array_key_exists('dateFrom', $this->search)) {
-                $this->search['dateTo'] = 'NOW';
-            }
-
-            if ($this->search['dateFrom'] > $this->search['dateTo']) {
-                $tmpDate = $this->search['dateFrom'];
-                $this->search['dateFrom'] = $this->search['dateTo'];
-                $this->search['dateTo'] = $tmpDate;
-            }
-        }
+        $this->normalizeDateRangeSearchParams();
 
         // Pagination of Results: Pass the currentPage to the fluid template to calculate current index of search result.
         $currentPage = $this->getIntParameterSafely('page');
@@ -587,5 +572,50 @@ class SearchController extends AbstractController
         if ($this->settings['suggest'] ?? true) {
             $this->view->assign('uHash', GeneralUtility::hmac(new Typo3Version() . Environment::getExtensionsPath(), 'SearchSuggest'));
         }
+    }
+
+    /**
+     * Normalize dateFrom/dateTo search parameters.
+     *
+     * - Treats empty/whitespace-only values as absent.
+     * - If only one bound is present, defaults the other to '*' (open-ended).
+     * - Swaps the bounds only when both are plain integer years and dateFrom > dateTo.
+     * - Leaves Solr special values (*, NOW, date-math expressions) untouched.
+     * - Removes both keys when neither bound is provided after trimming.
+     *
+     * @access private
+     *
+     * @return void
+     */
+    private function normalizeDateRangeSearchParams(): void
+    {
+        $dateFrom = isset($this->search['dateFrom']) ? trim((string) $this->search['dateFrom']) : '';
+        $dateTo = isset($this->search['dateTo']) ? trim((string) $this->search['dateTo']) : '';
+
+        $hasFrom = $dateFrom !== '';
+        $hasTo = $dateTo !== '';
+
+        if (!$hasFrom && !$hasTo) {
+            unset($this->search['dateFrom'], $this->search['dateTo']);
+            return;
+        }
+
+        if (!$hasFrom) {
+            $dateFrom = '*';
+        }
+        if (!$hasTo) {
+            $dateTo = '*';
+        }
+
+        // Swap bounds only when both are plain integer years and dateFrom > dateTo.
+        if (
+            preg_match('/^-?\d+$/', $dateFrom) && preg_match('/^-?\d+$/', $dateTo)
+            && (int) $dateFrom > (int) $dateTo
+        ) {
+            [$dateFrom, $dateTo] = [$dateTo, $dateFrom];
+        }
+
+        $this->search['dateFrom'] = $dateFrom;
+        $this->search['dateTo'] = $dateTo;
     }
 }
