@@ -18,8 +18,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Cache php-cs-fixer data
+        uses: actions/cache@v5
+        with:
+          path: .php_cs_cache
+          key: "php-${{ matrix.variants.php }}-php-cs-fixer-${{ github.sha }}"
+          restore-keys: "php-${{ matrix.variants.php }}-php-cs-fixer-"
+
       - name: Install dependencies
         run: Build/Test/runTests.sh -s composerInstall -t ${{ matrix.variants.typo3 }} -p ${{ matrix.variants.php }}
+
+      - name: Check PSR-12 code style
+        run: vendor/bin/php-cs-fixer fix --dry-run -vvv --diff
 
       - name: Run unit tests
         run: Build/Test/runTests.sh -s unit -p ${{ matrix.variants.php }}
