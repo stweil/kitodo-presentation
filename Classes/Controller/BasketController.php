@@ -449,8 +449,8 @@ class BasketController extends AbstractController
             ];
 
             // update basket
-            if (!empty(json_decode($basket->getDocIds()))) {
-                $items = json_decode($basket->getDocIds());
+            $items = json_decode($basket->getDocIds());
+            if (!empty($items)) {
                 $items = get_object_vars($items);
             } else {
                 $items = [];
