@@ -464,7 +464,7 @@ class OaiPmhController extends AbstractController
         try {
             $documentSet = $this->fetchDocumentSet();
         } catch (\Exception $exception) {
-            $this->logger->error('Error fetching document set: ' . $exception->getErrorMessage());
+            $this->logger->error('Error fetching document set: ' . $exception->getMessage());
             $this->error = 'idDoesNotExist';
             return;
         }
@@ -548,7 +548,7 @@ class OaiPmhController extends AbstractController
         try {
             $documentSet = $this->fetchDocumentSet();
         } catch (\Exception $exception) {
-            $this->logger->error('Error fetching document set: ' . $exception->getErrorMessage());
+            $this->logger->error('Error fetching document set: ' . $exception->getMessage());
             $this->error = 'idDoesNotExist';
             return;
         }
