@@ -31,6 +31,10 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  * @subpackage dlf
  *
  * @access public
+ *
+ * @implements \Iterator<int, mixed>
+ * @implements \ArrayAccess<int, mixed>
+ * @implements QueryResultInterface<int, mixed>
  */
 class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInterface
 {
@@ -343,7 +347,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @access public
      *
-     * @param QueryInterface $query the query
+     * @param QueryInterface<int, mixed> $query the query
      *
      * @throws Exception not implemented
      *
