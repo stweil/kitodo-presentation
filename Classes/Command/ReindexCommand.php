@@ -147,8 +147,8 @@ class ReindexCommand extends BaseCommand
                 && $input->getOption('index-begin') >= 0
             ) {
                 // Get all documents for given limit and start.
-                $documents = $this->documentRepository->findAll()
-                    ->getQuery()
+                $documentsResult = $this->documentRepository->findAll();
+                $documents = $documentsResult->getQuery()
                     ->setLimit((int) $input->getOption('index-limit'))
                     ->setOffset((int) $input->getOption('index-begin'))
                     ->execute();
