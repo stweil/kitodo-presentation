@@ -188,7 +188,7 @@ class Generator
         ];
 
         // Integrate doc-comments from model class and its fields
-        if ($className !== null) {
+        if ($className !== null && class_exists($className)) {
             $reflection = new ReflectionClass($className);
 
             $dataMap = $this->dataMapper->getDataMap($className);

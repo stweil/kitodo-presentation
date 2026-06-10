@@ -247,7 +247,7 @@ class OaiPmhController extends AbstractController
      */
     protected function getMetsData(array $record): string
     {
-        $mets = null;
+        $mets = '';
         // Load METS file.
         $xml = new \DOMDocument();
         if ($xml->load($record['location'])) {
@@ -307,7 +307,7 @@ class OaiPmhController extends AbstractController
         // Here we could also choose `false` for a minimized XML.
         $dom->formatOutput = true;
         $dom->loadXML($xmlOutput);
-        $formattedXmlOutput = trim($dom->saveXML());
+        $formattedXmlOutput = trim((string)$dom->saveXML());
 
         // Return the formatted XML.
         return $this->htmlResponse($formattedXmlOutput);
@@ -357,7 +357,7 @@ class OaiPmhController extends AbstractController
 
         $document = $this->documentRepository->getOaiRecord($this->settings, $this->parameters);
 
-        if (!$document['uid']) {
+        if (empty($document['uid'])) {
             $this->error = 'idDoesNotExist';
             return;
         }
