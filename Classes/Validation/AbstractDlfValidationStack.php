@@ -79,6 +79,8 @@ abstract class AbstractDlfValidationStack extends AbstractDlfValidator
             $validator = GeneralUtility::makeInstance($className, $configuration);
         }
 
+        /** @var AbstractDlfValidator $validator */
+
         if (!$validator instanceof AbstractDlfValidator) {
             $this->logger->error('Validator of class "' . $className . '" must be an instance of AbstractDlfValidator.');
             throw new InvalidArgumentException('Validator must be an instance of AbstractDlfValidator.', 1723121212747);
