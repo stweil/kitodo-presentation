@@ -189,7 +189,7 @@ class Generator
 
         // Integrate doc-comments from model class and its fields
         if ($className !== null) {
-            $reflection = new ReflectionClass($className); // @phpstan-ignore-line
+            $reflection = new ReflectionClass($className);
 
             $dataMap = $this->dataMapper->getDataMap($className);
 
