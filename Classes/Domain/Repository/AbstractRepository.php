@@ -218,7 +218,6 @@ class AbstractRepository extends Repository
      */
     protected function getDefaultQuerySettings(): QuerySettingsInterface
     {
-        // @phpstan-ignore-next-line (defaultQuerySettings can be null)
         if (empty($this->defaultQuerySettings)) {
             return $this->createQuery()->getQuerySettings();
         }

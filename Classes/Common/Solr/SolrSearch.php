@@ -32,7 +32,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  *
  * @access public
  */
-class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInterface // @phpstan-ignore-line
+class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInterface
 {
     /**
      * @access private
@@ -349,7 +349,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @return void
      */
-    public function setQuery(QueryInterface $query): void // @phpstan-ignore-line
+    public function setQuery(QueryInterface $query): void
     {
         throw new Exception("setQuery not supported on SolrSearch instance");
     }
@@ -813,8 +813,6 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             }
             $result = $solr->service->createResult($selectQuery, $response);
 
-            // TODO: Call to an undefined method Solarium\Core\Query\Result\ResultInterface::getGrouping().
-            // @phpstan-ignore-next-line
             $uidGroup = $result->getGrouping()->getGroup('uid');
             $resultSet['numberOfToplevels'] = $uidGroup->getNumberOfGroups();
             $resultSet['numFound'] = $uidGroup->getMatches();

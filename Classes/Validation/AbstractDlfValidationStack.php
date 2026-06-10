@@ -74,9 +74,9 @@ abstract class AbstractDlfValidationStack extends AbstractDlfValidator
     protected function addValidator(string $className, ?array $configuration = null): void
     {
         if ($configuration === null) {
-            $validator = GeneralUtility::makeInstance($className); // @phpstan-ignore-line
+            $validator = GeneralUtility::makeInstance($className);
         } else {
-            $validator = GeneralUtility::makeInstance($className, $configuration); // @phpstan-ignore-line
+            $validator = GeneralUtility::makeInstance($className, $configuration);
         }
 
         if (!$validator instanceof AbstractDlfValidator) {

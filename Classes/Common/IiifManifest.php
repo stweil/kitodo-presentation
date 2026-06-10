@@ -299,8 +299,6 @@ final class IiifManifest extends AbstractDocument
         $resource = $this->iiif->getContainedResourceById($id);
         if (isset($resource)) {
             if ($resource instanceof CanvasInterface) {
-                // TODO: Cannot call method getSingleService() on array<Ubl\Iiif\Presentation\Common\Model\Resources\AnnotationInterface>.
-                // @phpstan-ignore-next-line
                 return (!empty($resource->getImageAnnotations()) && $resource->getImageAnnotations()->getSingleService() != null) ? $resource->getImageAnnotations()[0]->getSingleService()->getId() : $id;
             } elseif ($resource instanceof ContentResourceInterface) {
                 return $resource->getSingleService() instanceof Service ? $resource->getSingleService()->getId() : $id;
@@ -354,13 +352,13 @@ final class IiifManifest extends AbstractDocument
 
         if (!empty($logUnits[0])) {
             if (!$recursive) {
-                $details = $this->getLogicalStructureInfo($logUnits[0]); // @phpstan-ignore-line
+                $details = $this->getLogicalStructureInfo($logUnits[0]);
             } else {
                 // cache the ranges - they might occur multiple times in the structures "tree" - with full data as well as referenced as id
                 $processedStructures = [];
                 foreach ($logUnits as $logUnit) {
-                    if (!array_search($logUnit->getId(), $processedStructures)) { // @phpstan-ignore-line
-                        $this->tableOfContents[] = $this->getLogicalStructureInfo($logUnit, true, $processedStructures); // @phpstan-ignore-line
+                    if (!array_search($logUnit->getId(), $processedStructures)) {
+                        $this->tableOfContents[] = $this->getLogicalStructureInfo($logUnit, true, $processedStructures);
                     }
                 }
             }

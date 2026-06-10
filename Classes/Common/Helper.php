@@ -358,7 +358,6 @@ class Helper
         $hookObjects = [];
         if (is_array(self::getOptions()[self::$extKey . '/' . $scriptRelPath]['hookClass'] ?? null)) {
             foreach (self::getOptions()[self::$extKey . '/' . $scriptRelPath]['hookClass'] as $classRef) {
-                // @phpstan-ignore-next-line
                 $hookObjects[] = GeneralUtility::makeInstance($classRef);
             }
         }
