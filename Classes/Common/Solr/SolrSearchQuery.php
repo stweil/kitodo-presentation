@@ -16,7 +16,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Query;
  * @property int $limit
  * @property int $offset
  */
-class SolrSearchQuery extends Query // @phpstan-ignore-line
+class SolrSearchQuery extends Query
 {
     /**
      * @access private

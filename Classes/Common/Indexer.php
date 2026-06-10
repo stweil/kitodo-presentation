@@ -379,7 +379,7 @@ class Indexer
                 $solrDoc->setField('restrictions', $metadata['restrictions']);
                 $coordinates = json_decode($metadata['coordinates'][0] ?? '');
                 if (is_object($coordinates)) {
-                    $feature = (array) $coordinates->features[0]; // @phpstan-ignore-line
+                    $feature = (array) $coordinates->features[0];
                     $geometry = (array) $feature['geometry'];
                     krsort($geometry);
                     $feature['geometry'] = $geometry;

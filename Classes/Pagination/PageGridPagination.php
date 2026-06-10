@@ -26,7 +26,6 @@ final class PageGridPagination implements PaginationInterface
 
     public function __construct(PaginatorInterface $paginator)
     {
-        // @phpstan-ignore-next-line
         $this->paginator = $paginator;
     }
 
