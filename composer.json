@@ -46,16 +46,16 @@
     "symfony/process": "^7.4"
   },
   "require-dev": {
-    "fluidtypo3/vhs": "^7.2",
+    "fluidtypo3/vhs": "^7.2 || ^8.0",
     "friendsofphp/php-cs-fixer": "^3.95",
     "phpstan/phpstan": "^1.12",
-    "phpunit/phpunit": "^10.5",
+    "phpunit/phpunit": "^10.5 || ^11.0",
     "spatie/phpunit-watcher": "^1.24",
     "typo3/cms-backend": "^12.4|^13.4|^14.3",
     "typo3/cms-fluid": "^12.4|^13.4|^14.3",
     "typo3/cms-fluid-styled-content": "^12.4|^13.4|^14.3",
     "typo3/cms-frontend": "^12.4|^13.4|^14.3",
-    "typo3/testing-framework": "^8.3",
+    "typo3/testing-framework": "^8.3 || ^9.0",
     "vlucas/phpdotenv": "^5.6"
   },
   "replace": {
