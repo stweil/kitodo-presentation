@@ -25,7 +25,7 @@
     "docs": "https://docs.typo3.org/p/kitodo/presentation/main/en-us/"
   },
   "require": {
-    "php": "8.2 - 8.4",
+    "php": "8.2 - 8.5",
     "ext-curl": "*",
     "ext-dom": "*",
     "ext-json": "*",
@@ -40,9 +40,9 @@
     "typo3/cms-tstemplate": "^12.4|^13.4|^14.3",
     "caseyamcl/phpoaipmh": "^3.3",
     "slub/php-mods-reader": "^0.4",
-    "ubl/php-iiif-prezi-reader": "0.3.2",
+    "ubl/php-iiif-prezi-reader": "^0.3.2",
     "solarium/solarium": "^6.4",
-    "softcreatr/jsonpath": "^0.10",
+    "softcreatr/jsonpath": "*",
     "symfony/process": "^7.4"
   },
   "require-dev": {
@@ -140,7 +140,7 @@
   "repositories": [
     {
       "type": "github",
-      "url": "https://github.com/kitodo/php-iiif-prezi-reader.git"
+      "url": "https://github.com/stweil/php-iiif-prezi-reader.git"
     }
   ]
 }
