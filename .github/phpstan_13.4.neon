@@ -15,9 +15,6 @@ parameters:
     -
       message: '#Access to constant EDIT on an unknown class TYPO3\\CMS\\Scheduler\\Task\\Enumeration\\Action\.#'
       path: ../Classes/Task/BaseAdditionalFieldProvider.php
-    -
-      message: '#Call to method equals\(\) on an unknown class TYPO3\\CMS\\Scheduler\\Task\\Enumeration\\Action\.#'
-      path: ../Classes/Task/BaseAdditionalFieldProvider.php
   level: 7
   paths:
     - ../Classes
