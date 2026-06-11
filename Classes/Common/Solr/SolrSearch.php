@@ -349,14 +349,12 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @access public
      *
-     * @param QueryInterface<array> $query the query
-     *
      * @throws Exception not implemented
      *
-     * @return void
+     * @return never
      */
     // @phpstan-ignore-next-line
-    public function setQuery(QueryInterface $query): void
+    public function setQuery(QueryInterface $query): never
     {
         throw new Exception("setQuery not supported on SolrSearch instance");
     }
@@ -370,8 +368,10 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      */
     public function getFirst(): ?array
     {
-        $first = $this[0];
-        return is_array($first) ? $first : null;
+        if (isset($this[0]) && is_array($this[0])) {
+            return $this[0];
+        }
+        return null;
     }
 
     /**
