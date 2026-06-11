@@ -27,12 +27,11 @@ class IsArrayViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @param array $arguments
      * @return bool
      */
-    public function render(array $arguments): bool
+    public function render(): bool
     {
-        return self::renderStatic($arguments, $this->renderChildrenClosure, $this->renderingContext);
+        return self::renderStatic($this->arguments, $this->renderChildrenClosure, $this->renderingContext);
     }
 
     /**
