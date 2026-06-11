@@ -378,7 +378,7 @@ class Indexer
                 $solrDoc->setField('terms', $metadata['terms']);
                 $solrDoc->setField('restrictions', $metadata['restrictions']);
                 $coordinates = json_decode($metadata['coordinates'][0] ?? '');
-                if (is_object($coordinates)) {
+                if (is_object($coordinates) && isset($coordinates->features) && is_array($coordinates->features)) {
                     $feature = (array) $coordinates->features[0];
                     $geometry = (array) $feature['geometry'];
                     krsort($geometry);
