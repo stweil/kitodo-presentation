@@ -46,7 +46,6 @@
     "symfony/process": "^7.4"
   },
   "require-dev": {
-    "fluidtypo3/vhs": "^7.2|^8.0",
     "friendsofphp/php-cs-fixer": "^3.95",
     "phpstan/phpstan": "^1.12",
     "phpunit/phpunit": "^10.5|^11.0",
