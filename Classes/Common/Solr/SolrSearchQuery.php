@@ -13,7 +13,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Query;
  *
  * @access public
  *
- * @extends Query<int, mixed>
+ * @extends Query<object>
  *
  * @property int $limit
  * @property int $offset

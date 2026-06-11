@@ -334,7 +334,7 @@ class NewTenantController extends AbstractController
         $beLabels = $this->languageFactory->getParsedData('EXT:dlf/Resources/Private/Language/locallang_be.xlf', $this->siteLanguages[0]->getLocale()->getLanguageCode());
 
         $allCores = $this->solrCoreRepository->findAll();
-        if ($allCores->getFirst() === null) {
+        if (!($allCores instanceof \TYPO3\CMS\Extbase\Persistence\QueryResultInterface) || $allCores->getFirst() === null) {
             $newRecord = GeneralUtility::makeInstance(SolrCore::class);
             $newRecord->setLabel($this->getLLL('flexform.solrcore', $this->siteLanguages[0]->getLocale()->getLanguageCode(), $beLabels). ' (PID ' . $this->pid . ')');
             $indexName = Solr::createCore('');

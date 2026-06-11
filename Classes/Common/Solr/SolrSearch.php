@@ -164,9 +164,9 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @access public
      *
-     * @return mixed[]
+     * @return mixed
      */
-    public function current(): array
+    public function current(): mixed
     {
         return $this[$this->position];
     }
@@ -277,7 +277,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      * @access public
      *
      * @param int $offset
-     * @param int $value
+     * @param mixed $value
      *
      * @return void
      *
@@ -347,7 +347,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @access public
      *
-     * @param QueryInterface<int, mixed> $query the query
+     * @param QueryInterface<object> $query the query
      *
      * @throws Exception not implemented
      *
@@ -817,9 +817,16 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             }
             $result = $solr->service->createResult($selectQuery, $response);
 
-            $uidGroup = $result->getGrouping()->getGroup('uid');
-            $resultSet['numberOfToplevels'] = $uidGroup->getNumberOfGroups();
-            $resultSet['numFound'] = $uidGroup->getMatches();
+            $uidGroup = [];
+            if (method_exists($result, 'getGrouping')) {
+                $grouping = $result->getGrouping();
+                $uidGroup = $grouping->getGroup('uid');
+                $resultSet['numberOfToplevels'] = $uidGroup->getNumberOfGroups();
+                $resultSet['numFound'] = $uidGroup->getMatches();
+            } else {
+                $resultSet['numberOfToplevels'] = 0;
+                $resultSet['numFound'] = 0;
+            }
             $highlighting = [];
             if ($fulltextExists === true) {
                 $data = $result->getData();

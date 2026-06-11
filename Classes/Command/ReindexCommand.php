@@ -148,10 +148,14 @@ class ReindexCommand extends BaseCommand
             ) {
                 // Get all documents for given limit and start.
                 $documentsResult = $this->documentRepository->findAll();
-                $documents = $documentsResult->getQuery()
-                    ->setLimit((int) $input->getOption('index-limit'))
-                    ->setOffset((int) $input->getOption('index-begin'))
-                    ->execute();
+                if ($documentsResult instanceof \TYPO3\CMS\Extbase\Persistence\QueryResultInterface) {
+                    $documents = $documentsResult->getQuery()
+                        ->setLimit((int) $input->getOption('index-limit'))
+                        ->setOffset((int) $input->getOption('index-begin'))
+                        ->execute();
+                } else {
+                    $documents = $documentsResult;
+                }
                 $io->writeln($input->getOption('index-limit') . ' documents starting from ' . $input->getOption('index-begin') . ' will be indexed.');
             } else {
                 // Get all documents.

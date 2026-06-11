@@ -20,7 +20,7 @@ use TYPO3\CMS\Core\Pagination\PaginatorInterface;
 final class PageGridPagination implements PaginationInterface
 {
     /**
-     * @var PageGridPaginator
+     * @var PaginatorInterface
      */
     protected $paginator;
 
@@ -31,23 +31,30 @@ final class PageGridPagination implements PaginationInterface
 
     public function getPreviousPageNumber(): ?int
     {
-        $previousPage = (int) (($this->paginator->getCurrentPageNumber() - 1) * $this->paginator->getPublicItemsPerPage()) - ($this->paginator->getPublicItemsPerPage() - 1);
+        /** @var PageGridPaginator $paginator */
+        $paginator = $this->paginator;
+        $itemsPerPage = (int) $paginator->getPublicItemsPerPage();
+        $currentPage = (int) $paginator->getCurrentPageNumber();
 
-        if ($previousPage > $this->paginator->getNumberOfPages()) {
+        $previousPage = ($currentPage - 1) * $itemsPerPage - ($itemsPerPage - 1);
+
+        if ($previousPage > $paginator->getNumberOfPages()) {
             return null;
         }
 
         return $previousPage >= $this->getFirstPageNumber()
-            ? $previousPage
+            ? (int) $previousPage
             : null
         ;
     }
 
     public function getNextPageNumber(): ?int
     {
-        $nextPage = (int) ($this->paginator->getCurrentPageNumber() * iterator_count($this->paginator->getPaginatedItems()) + 1);
+        /** @var PageGridPaginator $paginator */
+        $paginator = $this->paginator;
+        $nextPage = (int) ($paginator->getCurrentPageNumber() * iterator_count($paginator->getPaginatedItems()) + 1);
 
-        return $nextPage <= $this->paginator->getNumberOfPages()
+        return $nextPage <= $paginator->getNumberOfPages()
             ? $nextPage
             : null
         ;
