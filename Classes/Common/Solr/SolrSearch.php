@@ -363,7 +363,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @access public
      *
-     * @return array|null
+     * @return array<string, mixed>|null
      */
     public function getFirst(): ?array
     {
