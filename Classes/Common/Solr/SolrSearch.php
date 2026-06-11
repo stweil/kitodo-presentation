@@ -32,10 +32,11 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  *
  * @access public
  *
- * @implements \Iterator
- * @implements \ArrayAccess
- * @implements QueryResultInterface
+ * @implements \Iterator<int, array>
+ * @implements \ArrayAccess<int, array>
+ * @implements QueryResultInterface<int, array>
  */
+// @phpstan-ignore-next-line
 class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInterface
 {
     /**
@@ -335,8 +336,9 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @access public
      *
-     * @return QueryInterface
+     * @return QueryInterface<array>
      */
+    // @phpstan-ignore-next-line
     public function getQuery(): QueryInterface
     {
         return new SolrSearchQuery($this);
@@ -347,12 +349,13 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @access public
      *
-     * @param QueryInterface $query the query
+     * @param QueryInterface<array> $query the query
      *
      * @throws Exception not implemented
      *
      * @return void
      */
+    // @phpstan-ignore-next-line
     public function setQuery(QueryInterface $query): void
     {
         throw new Exception("setQuery not supported on SolrSearch instance");
