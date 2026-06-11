@@ -298,8 +298,13 @@ final class IiifManifest extends AbstractDocument
         }
         $resource = $this->iiif->getContainedResourceById($id);
         if (isset($resource)) {
-            if ($resource instanceof CanvasInterface) {
-                return (!empty($resource->getImageAnnotations()) && $resource->getImageAnnotations()->getSingleService() != null) ? $resource->getImageAnnotations()[0]->getSingleService()->getId() : $id;
+                if ($resource instanceof CanvasInterface) {
+                    $annotations = $resource->getImageAnnotations();
+                    if (!empty($annotations) && isset($annotations[0]) && method_exists($annotations[0], 'getSingleService') && $annotations[0]->getSingleService() != null) {
+                        return $annotations[0]->getSingleService()->getId();
+                    } else {
+                        return $id;
+                    }
             } elseif ($resource instanceof ContentResourceInterface) {
                 return $resource->getSingleService() instanceof Service ? $resource->getSingleService()->getId() : $id;
             } elseif ($resource instanceof AbstractImageService) {
@@ -351,14 +356,16 @@ final class IiifManifest extends AbstractDocument
         }
 
         if (!empty($logUnits[0])) {
-            if (!$recursive) {
-                $details = $this->getLogicalStructureInfo($logUnits[0]);
-            } else {
-                // cache the ranges - they might occur multiple times in the structures "tree" - with full data as well as referenced as id
-                $processedStructures = [];
-                foreach ($logUnits as $logUnit) {
-                    if (!array_search($logUnit->getId(), $processedStructures)) {
-                        $this->tableOfContents[] = $this->getLogicalStructureInfo($logUnit, true, $processedStructures);
+            if ($logUnits[0] instanceof IiifResourceInterface) {
+                if (!$recursive) {
+                    $details = $this->getLogicalStructureInfo($logUnits[0]);
+                } else {
+                    // cache the ranges - they might occur multiple times in the structures "tree" - with full data as well as referenced as id
+                    $processedStructures = [];
+                    foreach ($logUnits as $logUnit) {
+                        if ($logUnit instanceof IiifResourceInterface && !array_search($logUnit->getId(), $processedStructures)) {
+                            $this->tableOfContents[] = $this->getLogicalStructureInfo($logUnit, true, $processedStructures);
+                        }
                     }
                 }
             }

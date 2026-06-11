@@ -358,6 +358,7 @@ class Helper
         $hookObjects = [];
         if (is_array(self::getOptions()[self::$extKey . '/' . $scriptRelPath]['hookClass'] ?? null)) {
             foreach (self::getOptions()[self::$extKey . '/' . $scriptRelPath]['hookClass'] as $classRef) {
+                /** @var class-string<object> $classRef */
                 $instance = GeneralUtility::makeInstance($classRef);
                 $hookObjects[] = $instance;
             }

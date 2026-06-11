@@ -218,7 +218,7 @@ class AbstractRepository extends Repository
      */
     protected function getDefaultQuerySettings(): QuerySettingsInterface
     {
-        if (empty($this->defaultQuerySettings)) {
+        if ($this->defaultQuerySettings === null) {
             return $this->createQuery()->getQuerySettings();
         }
         return $this->defaultQuerySettings;
