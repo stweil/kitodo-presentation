@@ -32,8 +32,8 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  *
  * @access public
  *
- * @implements \Iterator<int, array>
- * @implements \ArrayAccess<int, array>
+ * @implements \Iterator
+ * @implements \ArrayAccess
  * @implements QueryResultInterface
  */
 class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInterface
@@ -335,9 +335,9 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @access public
      *
-     * @return SolrSearchQuery
+     * @return QueryInterface
      */
-    public function getQuery()
+    public function getQuery(): QueryInterface
     {
         return new SolrSearchQuery($this);
     }
@@ -347,7 +347,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @access public
      *
-     * @param QueryInterface<object> $query the query
+     * @param QueryInterface $query the query
      *
      * @throws Exception not implemented
      *
@@ -363,11 +363,12 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      *
      * @access public
      *
-     * @return SolrSearch
+     * @return array|null
      */
-    public function getFirst()
+    public function getFirst(): ?array
     {
-        return $this[0];
+        $first = $this[0];
+        return is_array($first) ? $first : null;
     }
 
     /**
