@@ -11,6 +11,7 @@ jobs:
     name: Static Code Analysis
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         variants: [ {typo3: 12.4, php: 8.2}, {typo3: 13.4, php: 8.4}, {typo3: 14.3, php: 8.4}  ]
     steps:
