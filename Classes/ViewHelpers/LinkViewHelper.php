@@ -14,7 +14,6 @@ namespace Kitodo\Dlf\ViewHelpers;
  * LICENSE.txt file that was distributed with this source code.
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\RequestContext;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 use TYPO3\CMS\Frontend\Routing\UriBuilder as FrontendUriBuilder;
@@ -45,11 +44,8 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
     {
         /** @var RenderingContext $renderingContext */
         $renderingContext = $this->renderingContext;
-
-        $request = GeneralUtility::makeInstance(RequestContext::class)->getRequest();
-        if ($request === null) {
-            return '';
-        }
+        /** @var \TYPO3\CMS\Extbase\Mvc\RequestInterface $request */
+        $request = $renderingContext->getRequest();
 
         $viewData = $this->arguments['viewData'];
 
