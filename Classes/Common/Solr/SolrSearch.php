@@ -32,9 +32,9 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  *
  * @access public
  *
- * @implements \Iterator<int, mixed>
- * @implements \ArrayAccess<int, mixed>
- * @implements QueryResultInterface<int, mixed>
+ * @implements \Iterator<int, array>
+ * @implements \ArrayAccess<int, array>
+ * @implements QueryResultInterface
  */
 class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInterface
 {
