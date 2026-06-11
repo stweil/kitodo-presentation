@@ -87,7 +87,7 @@ class SearchInDocument implements MiddlewareInterface
 
         if ($this->solr->ready) {
             $result = $this->executeSolrQuery($parameters);
-            /** @scrutinizer ignore-call */
+            /** @var \Solarium\Core\Query\Result $result */
             $output['numFound'] = $result->getNumFound();
             $data = $result->getData();
             $highlighting = $data['ocrHighlighting'];
