@@ -15,24 +15,6 @@ parameters:
     -
       message: '#Access to constant EDIT on an unknown class TYPO3\\CMS\\Scheduler\\Task\\Enumeration\\Action\.#'
       path: ../Classes/Task/BaseAdditionalFieldProvider.php
-    -
-      message: '#Class .* implements generic interface.*but does not specify its types.*#'
-      path: ../Classes/Common/Solr/SolrSearch.php
-    -
-      message: '#PHPDoc tag @implements has invalid value.*#'
-      path: ../Classes/Common/Solr/SolrSearch.php
-    -
-      message: '#Method .* return type with generic interface .* does not specify its types.*#'
-      path: ../Classes/Common/Solr/SolrSearch.php
-    -
-      message: '#Method .* has parameter .* with generic interface .* but does not specify its types.*#'
-      path: ../Classes/Common/Solr/SolrSearch.php
-    -
-      message: '#Class .* extends generic class .* but does not specify its types.*#'
-      path: ../Classes/Common/Solr/SolrSearchQuery.php
-    -
-      message: '#PHPDoc tag @extends has invalid value.*#'
-      path: ../Classes/Common/Solr/SolrSearchQuery.php
   level: 7
   paths:
     - ../Classes
