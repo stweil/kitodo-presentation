@@ -12,6 +12,7 @@ jobs:
     name: TYPO3
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         variants: [ {typo3: 12.4, php: 8.2}, {typo3: 12.4, php: 8.4}, {typo3: 13.4, php: 8.2}, {typo3: 13.4, php: 8.4}, {typo3: 14.3, php: 8.2}, {typo3: 14.3, php: 8.4}, {typo3: 14.3, php: 8.5}  ]
     steps:
