@@ -13,11 +13,9 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Query;
  *
  * @access public
  *
- * @extends Query
- *
- * @property int $limit
- * @property int $offset
+ * @extends Query<array>
  */
+// @phpstan-ignore-next-line
 class SolrSearchQuery extends Query
 {
     /**
