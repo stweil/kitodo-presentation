@@ -28,7 +28,6 @@ use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Pagination\PaginationInterface;
 use TYPO3\CMS\Core\Pagination\PaginatorInterface;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
-use TYPO3\CMS\Core\Resource\Exception\InvalidFileException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
@@ -147,11 +146,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
             'requestData' => $this->requestData
         ];
 
-        try {
-            $this->viewData['publicResourcePath'] = PathUtility::getPublicResourceWebPath('EXT:dlf/Resources/Public');
-        } catch (InvalidFileException) {
-            $this->logger->warning('Public resource path of the dlf extension could not be determined');
-        }
+        $this->viewData['publicResourcePath'] = PathUtility::getPublicResourceWebPath('EXT:dlf/Resources/Public');
 
     }
 
@@ -326,7 +321,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
                 [
                     'eID' => 'tx_dlf_pageview_proxy',
                     'url' => $url,
-                    'uHash' => GeneralUtility::hmac($url, 'PageViewProxy')
+                    'uHash' => GeneralUtility::hmac($url, 'PageViewProxy', 'dlf')
                 ]
             )
             ->build();

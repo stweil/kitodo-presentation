@@ -142,6 +142,8 @@ class TypoScriptHelper
         $typo3Version = (new Typo3Version())->getMajorVersion();
         if ($typo3Version === 13) {
             return GeneralUtility::makeInstance(TypoScriptHelper::class)->getFrontendTyposcriptV13($pid);
+        } elseif ($typo3Version >= 14) {
+            return GeneralUtility::makeInstance(TypoScriptHelper::class)->getFrontendTyposcriptV13($pid);
         }
         return TypoScriptHelper::getFrontendTyposcriptV12($pid);
     }
