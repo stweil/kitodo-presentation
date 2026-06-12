@@ -80,17 +80,4 @@ class MetadataWrapVariableViewHelper extends AbstractViewHelper
         ];
         $renderingContext->getVariableProvider()->add($arguments['name'], $wrap);
     }
-
-    /**
-     * @return void
-     */
-    public function render(): void
-    {
-        $childrenClosure = $this->renderChildrenClosure;
-        self::renderStatic(
-            $this->arguments,
-            \is_object($childrenClosure) ? $childrenClosure : function() { return ''; },
-            $this->renderingContext
-        );
-    }
 }
