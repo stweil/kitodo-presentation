@@ -247,7 +247,7 @@ class PageViewController extends AbstractController
                                 [
                                     'eID' => 'tx_dlf_pageview_proxy',
                                     'url' => $score['url'],
-                                    'uHash' => GeneralUtility::hmac($score['url'], 'PageViewProxy')
+                                    'uHash' => GeneralUtility::hmac($score['url'], 'PageViewProxy', 'dlf')
                                 ]
                             )
                             ->build();

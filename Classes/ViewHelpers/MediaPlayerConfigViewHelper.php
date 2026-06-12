@@ -63,7 +63,9 @@ class MediaPlayerConfigViewHelper extends AbstractViewHelper
         $inputSettings = $arguments['settings'];
 
         /** @var RenderingContext $renderingContext */
-        $request = $renderingContext->getRequest();
+        $request = method_exists($renderingContext, 'getHttpRequest')
+            ? $renderingContext->getHttpRequest()
+            : $renderingContext->getRequest();
 
         /** @var SiteLanguage $language */
         $language = $request->getAttribute('language');

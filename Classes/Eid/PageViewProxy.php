@@ -187,7 +187,7 @@ class PageViewProxy
 
         // get and verify the uHash
         $uHash = (string) ($queryParams['uHash'] ?? '');
-        if (!hash_equals(GeneralUtility::hmac($url, 'PageViewProxy'), $uHash)) {
+        if (!hash_equals(GeneralUtility::hmac($url, 'PageViewProxy', 'dlf'), $uHash)) {
             return new JsonResponse(['message' => 'No valid uHash passed!'], 401);
         }
         try {

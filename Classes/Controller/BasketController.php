@@ -624,9 +624,7 @@ class BasketController extends AbstractController
             }
         }
         $from = MailUtility::getSystemFrom();
-        // send mail
         $mail = GeneralUtility::makeInstance(MailMessage::class);
-        // Prepare and send the message
         $mail
             // subject
             ->subject(LocalizationUtility::translate('basket.mailSubject', 'dlf'))
@@ -634,8 +632,14 @@ class BasketController extends AbstractController
             ->setFrom($from)
             // Set the To addresses with an associative array
             ->to(new Address($mailObject->getMail(), $mailObject->getName()))
-            ->html($mailBody)
-            ->send();
+            ->html($mailBody);
+        if (method_exists($mail, 'send')) {
+            $mail->send();
+        } else {
+            /** @var \Psr\Mail\Sender $mailSender */
+            $mailSender = GeneralUtility::makeInstance(\TYPO3\CMS\Mail\Mailer::class);
+            $mailSender->send($mail->getPsrMessage());
+        }
 
         // create entry for action log
         $newActionLog = GeneralUtility::makeInstance(ActionLog::class);
