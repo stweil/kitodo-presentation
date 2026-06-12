@@ -30,7 +30,7 @@ class IsArrayViewHelper extends AbstractViewHelper
     {
         return self::renderStatic(
             $this->arguments,
-            $this->renderChildrenClosure ?? static function() { return null; },
+            $this->renderChildrenClosure,
             $this->renderingContext
         );
     }
