@@ -22,11 +22,16 @@ jobs:
         run: git config --global --add safe.directory /app
 
       - name: Install dependencies
-        uses: php-actions/composer@v6
-        with:
-          command: update
-          php_version: ${{ matrix.variants.php }}
-          args: --ignore-platform-reqs --with=typo3/cms-core:^${{ matrix.variants.typo3 }}
+        run: |
+          if [ "${{ matrix.variants.typo3 }}" = "12.4" ]; then
+            cp composer.lock.v12 composer.lock
+          fi
+          if [ "${{ matrix.variants.typo3 }}" = "12.4" ]; then
+            composer install --no-scripts --ignore-platform-reqs
+          else
+            composer update --no-scripts --ignore-platform-reqs --with=typo3/cms-core:^${{ matrix.variants.typo3 }}
+          fi
+        shell: bash
 
       - name: PHPStan Static Analysis
         uses: php-actions/phpstan@v3
