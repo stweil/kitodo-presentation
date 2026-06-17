@@ -45,7 +45,9 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
         /** @var RenderingContext $renderingContext */
         $renderingContext = $this->renderingContext;
         /** @var \TYPO3\CMS\Extbase\Mvc\RequestInterface $request */
-        $request = $renderingContext->getRequest();
+        $request = method_exists($renderingContext, 'getHttpRequest')
+            ? $renderingContext->getHttpRequest()
+            : $renderingContext->getRequest();
 
         $viewData = $this->arguments['viewData'];
 

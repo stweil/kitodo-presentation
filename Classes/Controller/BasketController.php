@@ -634,8 +634,10 @@ class BasketController extends AbstractController
             ->setFrom($from)
             // Set the To addresses with an associative array
             ->to(new Address($mailObject->getMail(), $mailObject->getName()))
-            ->html($mailBody)
-            ->send();
+            ->html($mailBody);
+        if (method_exists($mail, 'send')) {
+            $mail->send();
+        }
 
         // create entry for action log
         $newActionLog = GeneralUtility::makeInstance(ActionLog::class);

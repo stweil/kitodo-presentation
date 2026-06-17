@@ -147,11 +147,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
             'requestData' => $this->requestData
         ];
 
-        try {
-            $this->viewData['publicResourcePath'] = PathUtility::getPublicResourceWebPath('EXT:dlf/Resources/Public');
-        } catch (InvalidFileException) {
-            $this->logger->warning('Public resource path of the dlf extension could not be determined');
-        }
+        $this->viewData['publicResourcePath'] = PathUtility::getPublicResourceWebPath('EXT:dlf/Resources/Public');
 
     }
 

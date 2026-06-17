@@ -253,7 +253,7 @@ class NewTenantController extends AbstractController
             $availableFormats[$insertedFormat->getRoot()] = $insertedFormat->getUid();
         }
 
-        $defaultWrap = BackendUtility::getTcaFieldConfiguration('tx_dlf_metadata', 'wrap')['default'];
+        $defaultWrap = $GLOBALS['TCA']['tx_dlf_metadata']['columns']['wrap']['config']['default'] ?? '';
 
         $data = [];
         foreach ($metadataDefaults as $indexName => $values) {
