@@ -42,12 +42,10 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
 
     public function render(): string
     {
-        /** @var \TYPO3\CMS\Fluid\Core\Rendering\RenderingContext $renderingContext */
+        /** @var RenderingContext $renderingContext */
         $renderingContext = $this->renderingContext;
         /** @var \TYPO3\CMS\Extbase\Mvc\RequestInterface $request */
-        $request = method_exists($renderingContext, 'getHttpRequest')
-            ? $renderingContext->getHttpRequest()
-            : $renderingContext->getRequest();
+        $request = $renderingContext->getRequest();
 
         $viewData = $this->arguments['viewData'];
 
