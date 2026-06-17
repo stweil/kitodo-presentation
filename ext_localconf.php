@@ -14,17 +14,6 @@ if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
-$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-    \TYPO3\CMS\Core\Imaging\IconRegistry::class
-);
-foreach ($iconArray as $key => $value) {
-    $iconRegistry->registerIcon(
-        $key,
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => $value]
-    );
-}
-
 // Register plugins as content elements.
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
     '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:dlf/Configuration/TsConfig/ContentElements.tsconfig">'
