@@ -70,6 +70,9 @@ services:
         if [ ${SCRIPT_VERBOSE} -eq 1 ]; then
           set -x
         fi
+        if [ \"${TYPO3_VERSION}\" = \"12.4\" ]; then
+          cp composer.lock.v12 composer.lock
+        fi
         if [ -z ${TYPO3_VERSION} ]; then
           composer install --no-progress --no-interaction;
         else
