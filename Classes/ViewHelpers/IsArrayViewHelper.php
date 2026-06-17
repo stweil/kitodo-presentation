@@ -26,11 +26,15 @@ class IsArrayViewHelper extends AbstractViewHelper
         $this->registerArgument('subject', 'string', 'The subject');
     }
 
+    /**
+     * @return bool
+     */
     public function render(): bool
     {
+        $childrenClosure = $this->renderChildrenClosure;
         return self::renderStatic(
             $this->arguments,
-            $this->renderChildrenClosure,
+            \is_object($childrenClosure) ? $childrenClosure : static function() { return null; },
             $this->renderingContext
         );
     }

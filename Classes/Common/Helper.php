@@ -36,7 +36,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
-use TYPO3\CMS\Core\Information\Typo3Version;
 
 /**
  * Helper class for the 'dlf' extension
@@ -558,9 +557,7 @@ class Helper
             // Instantiate TYPO3 core engine.
             $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
             // We do not use workspaces and have to bypass restrictions in DataHandler.
-            if (property_exists($dataHandler, 'bypassWorkspaceRestrictions')) {
-                $dataHandler->bypassWorkspaceRestrictions = true;
-            }
+            $dataHandler->bypassWorkspaceRestrictions = true;
             // Load data and command arrays.
             $dataHandler->start($data, $cmd);
             // Process command map first if default order is reversed.
@@ -710,39 +707,15 @@ class Helper
     public static function whereExpression(string $table, bool $showHidden = false): string
     {
         if (!Environment::isCli() && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
-            $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-            if (method_exists($pageRepository, 'enableFields')) {
-                $expression = $pageRepository->enableFields($table, $showHidden ? 1 : 0);
-            } else {
-                // TYPO3 13/14+ no longer has enableFields()
-                $constraintBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
-                    ->getQueryBuilderForTable($table)
-                    ->getConstraintBuilder();
-                $whereParts = [];
-                $whereParts[] = $constraintBuilder->eq($table . '.' . $GLOBALS['TCA'][$table]['ctrl']['delete'], 0);
-                if (!$showHidden) {
-                    $whereParts[] = $constraintBuilder->eq($table . '.' . $GLOBALS['TCA'][$table]['ctrl']['hidden'], 0);
-                }
-                if (!empty($GLOBALS['TCA'][$table]['ctrl']['starttime'])) {
-                    $whereParts[] = $constraintBuilder->gte($table . '.' . $GLOBALS['TCA'][$table]['ctrl']['starttime'], 0);
-                }
-                if (!empty($GLOBALS['TCA'][$table]['ctrl']['endtime'])) {
-                    $whereParts[] = $constraintBuilder->or(
-                        $constraintBuilder->eq($table . '.' . $GLOBALS['TCA'][$table]['ctrl']['endtime'], 0),
-                        $constraintBuilder->lte($table . '.' . $GLOBALS['TCA'][$table]['ctrl']['endtime'], time())
-                    );
-                }
-                if (!empty($GLOBALS['TCA'][$table]['ctrl']['feGroup'])) {
-                    $whereParts[] = $constraintBuilder->or(
-                        $constraintBuilder->eq($table . '.' . $GLOBALS['TCA'][$table]['ctrl']['feGroup'], ''),
-                        $constraintBuilder->eq($table . '.' . $GLOBALS['TCA'][$table]['ctrl']['feGroup'], '-1')
-                    );
-                }
-                $expression = '';
-                if (!empty($whereParts)) {
-                    $expression = ' AND ' . implode(' AND ', $whereParts);
-                }
+            // Should we ignore the record's hidden flag?
+            $ignoreHide = 0;
+            if ($showHidden) {
+                $ignoreHide = 1;
             }
+            /** @var PageRepository $pageRepository */
+            $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
+
+            $expression = $pageRepository->enableFields($table, $ignoreHide);
             if (!empty($expression)) {
                 return substr($expression, 5);
             } else {
