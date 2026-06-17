@@ -557,7 +557,9 @@ class Helper
             // Instantiate TYPO3 core engine.
             $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
             // We do not use workspaces and have to bypass restrictions in DataHandler.
-            $dataHandler->bypassWorkspaceRestrictions = true;
+            if (property_exists($dataHandler, 'bypassWorkspaceRestrictions')) {
+                $dataHandler->bypassWorkspaceRestrictions = true;
+            }
             // Load data and command arrays.
             $dataHandler->start($data, $cmd);
             // Process command map first if default order is reversed.
@@ -707,11 +709,18 @@ class Helper
     public static function whereExpression(string $table, bool $showHidden = false): string
     {
         if (!Environment::isCli() && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
-            // Should we ignore the record's hidden flag?
-            $ignoreHide = 0;
-            if ($showHidden) {
-                $ignoreHide = 1;
+            $typo3Version = (new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion();
+            if ($typo3Version >= 13) {
+                $where = '';
+                if (!$showHidden) {
+                    $where .= ' AND ' . $table . '.hidden=0';
+                }
+                if (isset($GLOBALS['TCA'][$table]['ctrl']['delete'])) {
+                    $where .= ' AND ' . $table . '.' . $GLOBALS['TCA'][$table]['ctrl']['delete'] . '=0';
+                }
+                return $where;
             }
+            $ignoreHide = $showHidden ? 1 : 0;
             /** @var PageRepository $pageRepository */
             $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
 

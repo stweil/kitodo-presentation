@@ -140,7 +140,7 @@ class TypoScriptHelper
     public static function getFrontendTyposcript(int $pid): FrontendTypoScript
     {
         $typo3Version = (new Typo3Version())->getMajorVersion();
-        if ($typo3Version === 13) {
+        if ($typo3Version >= 13) {
             return GeneralUtility::makeInstance(TypoScriptHelper::class)->getFrontendTyposcriptV13($pid);
         }
         return TypoScriptHelper::getFrontendTyposcriptV12($pid);
