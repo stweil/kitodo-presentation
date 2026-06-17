@@ -40,7 +40,12 @@ class MediaPlayerConfigViewHelper extends AbstractViewHelper
      */
     public function render(): string
     {
-        return self::renderStatic($this->arguments, $this->renderChildrenClosure, $this->renderingContext);
+        $childrenClosure = $this->renderChildrenClosure;
+        return self::renderStatic(
+            $this->arguments,
+            \is_object($childrenClosure) ? $childrenClosure : static function() { return ''; },
+            $this->renderingContext
+        );
     }
 
     /**
@@ -63,9 +68,7 @@ class MediaPlayerConfigViewHelper extends AbstractViewHelper
         $inputSettings = $arguments['settings'];
 
         /** @var RenderingContext $renderingContext */
-        $request = method_exists($renderingContext, 'getHttpRequest')
-            ? $renderingContext->getHttpRequest()
-            : $renderingContext->getRequest();
+        $request = $renderingContext->getRequest();
 
         /** @var SiteLanguage $language */
         $language = $request->getAttribute('language');

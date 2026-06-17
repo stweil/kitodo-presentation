@@ -39,15 +39,14 @@ class JsFooterViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @access public
-     *
      * @return void
      */
     public function render(): void
     {
+        $childrenClosure = $this->renderChildrenClosure;
         self::renderStatic(
             $this->arguments,
-            $this->renderChildrenClosure,
+            \is_object($childrenClosure) ? $childrenClosure : function() { return ''; },
             $this->renderingContext
         );
     }
