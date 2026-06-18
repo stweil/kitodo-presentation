@@ -13,13 +13,13 @@
 namespace Kitodo\Dlf\Tests\Unit\ViewHelpers;
 
 use Kitodo\Dlf\Tests\Functional\FunctionalTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-/**
- * @covers JsFooterViewHelper
- */
+#[CoversClass(\Kitodo\Dlf\ViewHelpers\JsFooterViewHelper::class)]
 class JsFooterViewHelperTest extends FunctionalTestCase
 {
     /**
@@ -27,9 +27,7 @@ class JsFooterViewHelperTest extends FunctionalTestCase
      */
     protected bool $initializeDatabase = false;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function pageRendererCallsAddJsFooterInlineCode(): void
     {
         $pageRendererProphecy = $this->getMockBuilder(PageRenderer::class)->disableOriginalConstructor()->getMock();
