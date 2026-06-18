@@ -108,9 +108,7 @@ class SearchControllerTest extends AbstractControllerTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canMakeFacetsMenuArray()
     {
         $queryParameters = [
@@ -183,9 +181,7 @@ class SearchControllerTest extends AbstractControllerTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canSearchAction()
     {
         $settings = [

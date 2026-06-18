@@ -15,6 +15,8 @@ namespace Kitodo\Dlf\Tests\Functional\Repository;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use Kitodo\Dlf\Domain\Repository\CollectionRepository;
 use Kitodo\Dlf\Tests\Functional\FunctionalTestCase;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestGroup;
 
 class CollectionRepositoryTest extends FunctionalTestCase
 {
@@ -42,10 +44,8 @@ class CollectionRepositoryTest extends FunctionalTestCase
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/Repository/collections.csv');
     }
 
-    /**
-     *
-     * @group find
-     */
+    #[Test]
+    #[TestGroup('find')]
     public function canFindAllByUids(): void
     {
         $collections = $this->collectionRepository->findAllByUids([1101, 1102]);
@@ -79,10 +79,8 @@ class CollectionRepositoryTest extends FunctionalTestCase
         return $collectionsByLabel;
     }
 
-    /**
-     * @test
-     * @group find
-     */
+    #[Test]
+    #[TestGroup('find')]
     public function canFindCollectionsBySettings(): void
     {
         $collectionsByLabel = $this->findCollectionsBySettings(['collections' => '1101, 1102']);
@@ -158,10 +156,8 @@ class CollectionRepositoryTest extends FunctionalTestCase
         self::assertArrayHasKey('Geschichte', $collectionsByLabel);
     }
 
-    /**
-     * @test
-     * @group find
-     */
+    #[Test]
+    #[TestGroup('find')]
     public function canGetIndexNameForSolr(): void
     {
         $indexName = $this->collectionRepository->getIndexNameForSolr(
