@@ -49,9 +49,7 @@ class DocumentRepositoryTest extends FunctionalTestCase
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/Common/libraries.csv');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canRetrieveDocument(): void
     {
         $document = $this->documentRepository->findByUid(1001);
@@ -64,9 +62,7 @@ class DocumentRepositoryTest extends FunctionalTestCase
         self::assertInstanceOf(MetsDocument::class, $doc);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canFindOneByParametersWithIdReturnsDocument(): void
     {
         $result = $this->documentRepository->findOneByParameters(['id' => '1001']);
