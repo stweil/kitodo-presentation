@@ -13,6 +13,7 @@
 namespace Kitodo\Dlf\Tests\Functional\Controller;
 
 use Kitodo\Dlf\Controller\FeedsController;
+use PHPUnit\Framework\Attributes\Test;
 
 class FeedsControllerTest extends AbstractControllerTestCase
 {

@@ -13,6 +13,7 @@
 namespace Kitodo\Dlf\Tests\Functional\Controller;
 
 use Kitodo\Dlf\Controller\StatisticsController;
+use PHPUnit\Framework\Attributes\Test;
 
 class StatisticsControllerTest extends AbstractControllerTestCase
 {

@@ -13,6 +13,7 @@
 namespace Kitodo\Dlf\Tests\Functional\Controller;
 
 use Kitodo\Dlf\Controller\PageGridController;
+use PHPUnit\Framework\Attributes\Test;
 
 class PageGridControllerTest extends AbstractControllerTestCase
 {

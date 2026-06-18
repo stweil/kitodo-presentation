@@ -13,6 +13,7 @@
 namespace Kitodo\Dlf\Tests\Functional\Controller;
 
 use Kitodo\Dlf\Controller\ToolboxController;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * This test class hard-codes the URL that is used to load the METS of document 2002 (see documents_local.csv).
