@@ -16,11 +16,11 @@ use Kitodo\Dlf\Common\AbstractDocument;
 use Kitodo\Dlf\Common\Helper;
 use Kitodo\Dlf\Common\Indexer;
 use Kitodo\Dlf\Common\Solr\Solr;
-use Kitodo\Dlf\Domain\Model\SolrCore;
 use Kitodo\Dlf\Domain\Repository\CollectionRepository;
 use Kitodo\Dlf\Domain\Repository\DocumentRepository;
 use Kitodo\Dlf\Domain\Repository\SolrCoreRepository;
 use Kitodo\Dlf\Tests\Functional\FunctionalTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class SolrIndexingTest extends FunctionalTestCase
@@ -57,9 +57,7 @@ class SolrIndexingTest extends FunctionalTestCase
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/Common/metadata.csv');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canCreateCore()
     {
         $coreName = uniqid('testCore');
@@ -73,9 +71,7 @@ class SolrIndexingTest extends FunctionalTestCase
         self::assertNotNull($solr->core);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canIndexAndSearchDocument()
     {
         $core = $this->createSolrCore();
@@ -128,9 +124,7 @@ class SolrIndexingTest extends FunctionalTestCase
         self::assertEquals($solrSearch[0], $iter[0]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canSearchInCollections()
     {
         $core = $this->createSolrCore();
@@ -169,9 +163,7 @@ class SolrIndexingTest extends FunctionalTestCase
         self::assertGreaterThan($metadataSearch->getNumFound(), $fulltextSearch->getNumFound());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canGetIndexFieldName()
     {
         self::assertEquals('title_usi', Indexer::getIndexFieldName('title', 20000));
