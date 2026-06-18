@@ -13,11 +13,11 @@
 namespace Kitodo\Dlf\Tests\Unit\ViewHelpers;
 
 use Kitodo\Dlf\Tests\Functional\FunctionalTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-/**
- * @covers MetadataWrapVariableViewHelper
- */
+#[CoversClass(\Kitodo\Dlf\ViewHelpers\MetadataWrapVariableViewHelper::class)]
 class MetadataWrapVariableViewHelperTest extends FunctionalTestCase
 {
     /**
@@ -25,9 +25,7 @@ class MetadataWrapVariableViewHelperTest extends FunctionalTestCase
      */
     protected bool $initializeDatabase = false;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function renderingContextCallsGetVariableProviderAdd(): void
     {
         $view = new StandaloneView();
