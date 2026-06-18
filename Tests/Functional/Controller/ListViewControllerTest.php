@@ -13,6 +13,8 @@
 namespace Kitodo\Dlf\Tests\Functional\Controller;
 
 use Kitodo\Dlf\Controller\ListViewController;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestGroup;
 
 class ListViewControllerTest extends AbstractControllerTestCase
 {

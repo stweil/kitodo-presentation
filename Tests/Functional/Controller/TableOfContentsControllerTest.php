@@ -13,6 +13,7 @@
 namespace Kitodo\Dlf\Tests\Functional\Controller;
 
 use Kitodo\Dlf\Controller\TableOfContentsController;
+use PHPUnit\Framework\Attributes\Test;
 
 class TableOfContentsControllerTest extends AbstractControllerTestCase
 {

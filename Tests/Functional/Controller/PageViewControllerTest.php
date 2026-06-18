@@ -13,6 +13,7 @@
 namespace Kitodo\Dlf\Tests\Functional\Controller;
 
 use Kitodo\Dlf\Controller\PageViewController;
+use PHPUnit\Framework\Attributes\Test;
 
 class PageViewControllerTest extends AbstractControllerTestCase
 {

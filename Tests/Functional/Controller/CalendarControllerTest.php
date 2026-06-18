@@ -14,6 +14,7 @@ namespace Kitodo\Dlf\Tests\Functional\Controller;
 
 use Kitodo\Dlf\Controller\CalendarController;
 use Kitodo\Dlf\Domain\Repository\StructureRepository;
+use PHPUnit\Framework\Attributes\Test;
 
 class CalendarControllerTest extends AbstractControllerTestCase
 {

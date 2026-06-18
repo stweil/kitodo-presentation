@@ -13,6 +13,7 @@
 namespace Kitodo\Dlf\Tests\Functional\Controller;
 
 use Kitodo\Dlf\Controller\MetadataController;
+use PHPUnit\Framework\Attributes\Test;
 
 class MetadataControllerTest extends AbstractControllerTestCase
 {
