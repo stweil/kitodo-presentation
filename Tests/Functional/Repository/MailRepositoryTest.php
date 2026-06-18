@@ -15,6 +15,8 @@ namespace Kitodo\Dlf\Tests\Functional\Repository;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use Kitodo\Dlf\Domain\Repository\MailRepository;
 use Kitodo\Dlf\Tests\Functional\FunctionalTestCase;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestGroup;
 
 class MailRepositoryTest extends FunctionalTestCase
 {
@@ -42,10 +44,8 @@ class MailRepositoryTest extends FunctionalTestCase
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/Repository/mail.csv');
     }
 
-    /**
-     * @test
-     * @group find
-     */
+    #[Test]
+    #[TestGroup('find')]
     public function canFindAll(): void
     {
         $mails = $this->mailRepository->findAll();
