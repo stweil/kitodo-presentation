@@ -16,6 +16,7 @@ use Kitodo\Dlf\Validation\DocumentValidator;
 use PHPUnit\Framework\Attributes\Test;
 use SimpleXMLElement;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class DocumentValidatorTest extends UnitTestCase
 {
