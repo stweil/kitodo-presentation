@@ -28,9 +28,7 @@ class MetadataControllerTest extends AbstractControllerTestCase
         $this->setUpData(self::$databaseFixtures);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canMainAction()
     {
         $settings = [

@@ -31,9 +31,7 @@ class NavigationControllerTest extends AbstractControllerTestCase
         $this->setUpData(self::$databaseFixtures);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canMainAction()
     {
         $settings = [
@@ -62,9 +60,7 @@ class NavigationControllerTest extends AbstractControllerTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canPageSelectAction()
     {
         $settings = [

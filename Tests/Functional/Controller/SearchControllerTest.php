@@ -38,9 +38,7 @@ class SearchControllerTest extends AbstractControllerTestCase
         $this->setUpSolr(self::$solrCoreId, self::$storagePid, self::$solrFixtures);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canMainAction()
     {
         $queryParameters = [

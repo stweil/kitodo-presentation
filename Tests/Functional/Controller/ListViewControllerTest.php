@@ -32,10 +32,8 @@ class ListViewControllerTest extends AbstractControllerTestCase
         $this->setUpSolr(self::$solrCoreId, self::$storagePid, self::$solrFixtures);
     }
 
-    /**
-     * @test
-     * @group action
-     */
+    #[Test]
+    #[TestGroup('action')]
     public function canMainAction(): void
     {
         $arguments = [
