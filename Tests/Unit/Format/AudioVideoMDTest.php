@@ -14,6 +14,8 @@ namespace Kitodo\Dlf\Tests\Unit\Format;
 
 use Kitodo\Dlf\Format\AudioVideoMD;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestGroup;
 
 class AudioVideoMDTest extends UnitTestCase
 {
@@ -31,10 +33,8 @@ class AudioVideoMDTest extends UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @group extractMetadata
-     */
+    #[Test]
+    #[TestGroup('extractMetadata')]
     public function canExtractDuration(): void
     {
         $xml = simplexml_load_file(__DIR__ . '/../../Fixtures/Format/audioVideo.xml');

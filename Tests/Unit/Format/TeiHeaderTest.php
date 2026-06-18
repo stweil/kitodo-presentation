@@ -13,6 +13,8 @@
 namespace Kitodo\Dlf\Tests\Unit\Format;
 
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestGroup;
 
 class TeiHeaderTest extends UnitTestCase
 {
@@ -25,10 +27,8 @@ class TeiHeaderTest extends UnitTestCase
         $this->metadata = [];
     }
 
-    /**
-     * @test
-     * @group extractMetadata
-     */
+    #[Test]
+    #[TestGroup('extractMetadata')]
     public function extract(): void
     {
         //TODO: TeiHeader class has no useful implementation.

@@ -14,13 +14,13 @@ namespace Kitodo\Dlf\Tests\Unit\Format;
 
 use Kitodo\Dlf\Format\Alto;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestGroup;
 
 class AltoTest extends UnitTestCase
 {
-    /**
-     * @test
-     * @group extract data
-     */
+    #[Test]
+    #[TestGroup('extract data')]
     public function getRawData(): void
     {
         $xml = simplexml_load_file(__DIR__ . '/../../Fixtures/Format/alto.xml');
@@ -31,10 +31,8 @@ class AltoTest extends UnitTestCase
         self::assertEquals('Bürgertum und Bürgerlichkeit in Dresden DRESDNER HEFTE', $rawText);
     }
 
-    /**
-     * @test
-     * @group extract data
-     */
+    #[Test]
+    #[TestGroup('extract data')]
     public function getTextAsMiniOcr(): void
     {
         $xml = simplexml_load_file(__DIR__ . '/../../Fixtures/Format/alto.xml');
@@ -69,10 +67,8 @@ class AltoTest extends UnitTestCase
         self::assertXmlStringEqualsXmlString($miniOCR, $rawText);
     }
 
-    /**
-     * @test
-     * @group extract data
-     */
+    #[Test]
+    #[TestGroup('extract data')]
     public function getTextAsMiniOcrNoTextBlock(): void
     {
         $xml = simplexml_load_file(__DIR__ . '/../../Fixtures/Format/altoNoTextBlock.xml');
@@ -83,10 +79,8 @@ class AltoTest extends UnitTestCase
         self::assertEquals('', $rawText);
     }
 
-    /**
-     * @test
-     * @group extract data
-     */
+    #[Test]
+    #[TestGroup('extract data')]
     public function getTextAsMiniOcrNoTextline(): void
     {
         $xml = simplexml_load_file(__DIR__ . '/../../Fixtures/Format/altoNoTextLine.xml');
@@ -97,10 +91,8 @@ class AltoTest extends UnitTestCase
         self::assertXmlStringEqualsXmlString('<?xml version="1.0"?><ocr><b/><b/></ocr>', $rawText);
     }
 
-    /**
-     * @test
-     * @group extract data
-     */
+    #[Test]
+    #[TestGroup('extract data')]
     public function getTextAsMiniOcrNoString(): void
     {
         $xml = simplexml_load_file(__DIR__ . '/../../Fixtures/Format/altoNoString.xml');
