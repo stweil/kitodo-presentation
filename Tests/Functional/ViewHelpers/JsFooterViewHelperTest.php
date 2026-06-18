@@ -22,6 +22,11 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  */
 class JsFooterViewHelperTest extends FunctionalTestCase
 {
+    protected array $coreExtensionsToLoad = [
+        'fluid',
+        'fluid_styled_content',
+    ];
+
     /**
      * @var bool Speed up this test case, it needs no database
      */
