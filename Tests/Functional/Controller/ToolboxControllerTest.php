@@ -32,9 +32,7 @@ class ToolboxControllerTest extends AbstractControllerTestCase
         $this->setUpData(self::$databaseFixtures);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canFulltextDownloadTool()
     {
         $settings = [
@@ -53,9 +51,7 @@ class ToolboxControllerTest extends AbstractControllerTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canFulltextTool()
     {
         $settings = [
@@ -75,9 +71,7 @@ class ToolboxControllerTest extends AbstractControllerTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canImageDownloadTool()
     {
         $settings = [
@@ -101,9 +95,7 @@ class ToolboxControllerTest extends AbstractControllerTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canImageManipulationTool()
     {
         $settings = [
@@ -123,9 +115,7 @@ class ToolboxControllerTest extends AbstractControllerTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canMainAction()
     {
         $settings = [
@@ -148,9 +138,7 @@ class ToolboxControllerTest extends AbstractControllerTestCase
 
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canPdfDownloadTool()
     {
         $settings = [
@@ -176,9 +164,7 @@ class ToolboxControllerTest extends AbstractControllerTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canSearchInDocumentTool()
     {
         $settings = [

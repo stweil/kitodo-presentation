@@ -217,9 +217,7 @@ class OaiPmhTest extends FunctionalTestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function noResumptionTokenForCompleteList()
     {
         $client = new OaiPmhTypo3Client($this->baseUrl, $this->oaiPage, $this);
@@ -232,9 +230,7 @@ class OaiPmhTest extends FunctionalTestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canListAndResumeIdentifiers()
     {
         $client = new OaiPmhTypo3Client($this->baseUrl, $this->oaiPage, $this);
