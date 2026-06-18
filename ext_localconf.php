@@ -17,6 +17,9 @@ if (!defined('TYPO3')) {
 // Register plugins as content elements.
 // Use $GLOBALS['TYPO3_CONF_VARS']['SYS']['defaultPageTSconfig'] for TYPO3 13+
 // as ExtensionManagementUtility::addPageTSConfig() was removed in TYPO3 14.
+if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['defaultPageTSconfig'])) {
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['defaultPageTSconfig'] = '';
+}
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['defaultPageTSconfig'] .= '
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:dlf/Configuration/TsConfig/ContentElements.tsconfig">
 ';
