@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
 This is based upon VideoFrame (see below). Changes:
 - export default
