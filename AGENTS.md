@@ -1,14 +1,14 @@
 # AGENTS.md
 
-Kitodo.Presentation: a TYPO3 extension (extension key `dlf`, PSR-4 `Kitodo\Dlf\` → `Classes/`). PHP 8.2–8.5, TYPO3 12.4 or 13.4. **TYPO3 14.3 support is work in progress** on this fork (constraints, CI matrix and T14 compat fixes are in place, but the branch has not been released). Apache Solr is the search backend (not needed for unit tests).
+Kitodo.Presentation: a TYPO3 extension (extension key `dlf`, PSR-4 `Kitodo\Dlf\` → `Classes/`). PHP 8.2–8.5, TYPO3 12.4 or 13.4. Apache Solr is the search backend (not needed for unit tests). **TYPO3 14.3 is not supported**: some T14-compat groundwork (non-static `render()` in ViewHelpers, T14-safe `ext_localconf`/`LinkViewHelper`) is in-tree, but T14 is excluded from the `composer.json`/`ext_emconf.php` constraints and the CI matrix because the extension still calls APIs removed in T14 (e.g. `GeneralUtility::hmac()`, `RenderingContext::getRequest()`, `TypoScriptFrontendController`).
 
 ## PHP
 
-- Install test dependencies: `composer install-via-docker -- -t 12.4`, `-- -t 13.4` or `-- -t 14.3` (`runTests.sh` help text only lists 12.4/13.4, but 14.3 works; for 12.4 the docker step switches to `composer.lock.v12`)
+- Install test dependencies: `composer install-via-docker -- -t 12.4` or `-- -t 13.4` (for 12.4 the docker step switches to `composer.lock.v12`, since 12.4-era `typo3/cms-*` releases are security-advisory-blocked and a fresh `composer update` no longer resolves them)
 - Unit tests (Docker): `composer test:unit`; locally: `composer test:unit:local` (or `vendor/bin/phpunit -c Build/Test/UnitTests.xml`, add `--filter <name>` for one test)
 - Functional tests **only run in Docker** (need MariaDB/Solr containers): `composer test:func` or `Build/Test/runTests.sh -s functional`; `-w` for watch mode. Options: `Build/Test/runTests.sh -h`
 - Fixtures for functional tests live in `Tests/Fixtures/`; use distinct, greppable 9-digit `uid`s (`rand(100000000, 999999999)`)
-- Static analysis: `composer phpstan` (hardwired to `.github/phpstan_13.4.neon`; CI runs one neon per TYPO3 version: `.github/phpstan_{12.4,13.4,14.3}.neon`, e.g. `vendor/bin/phpstan --configuration=.github/phpstan_14.3.neon`). To reproduce a CI PHPStan job locally (installs the right TYPO3 + runs that version's neon, exactly like the workflow), use `Build/Test/runPhpstan.sh -t <12.4|13.4|14.3>` — note it does a `composer update` for 13.4/14.3, so it rewrites `composer.lock`/`vendor`; restore them (`git checkout composer.lock && composer install`) afterwards if you don't want to keep the switch.
+- Static analysis: `composer phpstan` (hardwired to `.github/phpstan_13.4.neon`; CI runs one neon per TYPO3 version: `.github/phpstan_{12.4,13.4}.neon`). To reproduce a CI PHPStan job locally (installs the right TYPO3 + runs that version's neon, exactly like the workflow), use `Build/Test/runPhpstan.sh -t <12.4|13.4>` — note it does a `composer install` (12.4) or `composer update` (13.4), so it rewrites `composer.lock`/`vendor`; restore them (`git checkout composer.lock && composer install`) afterwards if you don't want to keep the switch.
 - Code style: `composer php-cs-fixer:check` / `composer php-cs-fixer:fix`
 - Since TYPO3 14, `AbstractViewHelper::render()` is abstract: ViewHelpers that only define `renderStatic()` must also implement a non-static `render()` delegating to it. A duplicated `render()` in one class is a PHP fatal ("Cannot redeclare") that 500s every request rendering that ViewHelper
 
