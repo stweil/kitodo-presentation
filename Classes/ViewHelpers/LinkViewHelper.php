@@ -13,11 +13,13 @@ namespace Kitodo\Dlf\ViewHelpers;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 use TYPO3\CMS\Frontend\Routing\UriBuilder as FrontendUriBuilder;
 use TYPO3\CMS\Frontend\Uri\TypolinkCodecService;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
@@ -42,10 +44,7 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
 
     public function render(): string
     {
-        /** @var RenderingContext $renderingContext */
-        $renderingContext = $this->renderingContext;
-
-        $request = $renderingContext->getRequest();
+        $request = $this->resolveRequest($this->renderingContext);
         if ($request === null) {
             return '';
         }
@@ -104,6 +103,25 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
         $this->tag->setContent($childContent);
 
         return $this->tag->render();
+    }
+
+    protected function resolveRequest(RenderingContextInterface $renderingContext): ?RequestInterface
+    {
+        if (method_exists($renderingContext, 'getRequest')) {
+            $request = $renderingContext->getRequest();
+            if ($request instanceof RequestInterface) {
+                return $request;
+            }
+        }
+
+        if ($renderingContext->hasAttribute(ServerRequestInterface::class)) {
+            $request = $renderingContext->getAttribute(ServerRequestInterface::class);
+            if ($request instanceof RequestInterface) {
+                return $request;
+            }
+        }
+
+        return null;
     }
 
     /**
