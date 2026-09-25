@@ -36,6 +36,14 @@ class MediaPlayerConfigViewHelper extends AbstractViewHelper
     }
 
     /**
+     * @return string
+     */
+    public function render(): string
+    {
+        return self::renderStatic($this->arguments, $this->renderChildrenClosure, $this->renderingContext);
+    }
+
+    /**
      * @access public
      *
      * @static
