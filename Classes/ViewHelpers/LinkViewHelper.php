@@ -15,6 +15,7 @@ namespace Kitodo\Dlf\ViewHelpers;
  */
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Frontend\Routing\UriBuilder as FrontendUriBuilder;
@@ -118,6 +119,9 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
             $request = $renderingContext->getAttribute(ServerRequestInterface::class);
             if ($request instanceof RequestInterface) {
                 return $request;
+            }
+            if ($request instanceof ServerRequestInterface) {
+                return new Request($request);
             }
         }
 
