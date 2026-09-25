@@ -36,9 +36,30 @@ class RenderMethodDeclarationTest extends UnitTestCase
     {
         $absolutePath = dirname(__DIR__, 3) . '/' . $relativePath;
         $contents = (string) file_get_contents($absolutePath);
+        $tokens = token_get_all($contents);
+        $renderMethods = 0;
 
-        preg_match_all('/public function render\\s*\\(/', $contents, $matches);
+        $tokenCount = count($tokens);
+        for ($index = 0; $index < $tokenCount; $index++) {
+            $token = $tokens[$index];
+            if (!is_array($token) || $token[0] !== T_FUNCTION) {
+                continue;
+            }
 
-        self::assertCount(1, $matches[0], 'Expected one render() method in ' . $relativePath);
+            for ($nameIndex = $index + 1; $nameIndex < $tokenCount; $nameIndex++) {
+                $nameToken = $tokens[$nameIndex];
+                if (!is_array($nameToken)) {
+                    continue;
+                }
+                if ($nameToken[0] === T_STRING) {
+                    if (strtolower($nameToken[1]) === 'render') {
+                        $renderMethods++;
+                    }
+                    break;
+                }
+            }
+        }
+
+        self::assertSame(1, $renderMethods, 'Expected one render() method in ' . $relativePath);
     }
 }
