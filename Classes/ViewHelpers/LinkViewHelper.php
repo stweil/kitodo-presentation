@@ -13,8 +13,9 @@ namespace Kitodo\Dlf\ViewHelpers;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\RequestContext;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 use TYPO3\CMS\Frontend\Routing\UriBuilder as FrontendUriBuilder;
@@ -46,8 +47,14 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
         /** @var RenderingContext $renderingContext */
         $renderingContext = $this->renderingContext;
 
-        $request = GeneralUtility::makeInstance(RequestContext::class)->getRequest();
-        if ($request === null) {
+        // TYPO3 12.4 exposes the request via getRequest(); from 13 on the
+        // request is stored as a rendering-context attribute (and getRequest()
+        // is removed in 14).
+        $request = $renderingContext->hasAttribute(ServerRequestInterface::class)
+            ? $renderingContext->getAttribute(ServerRequestInterface::class)
+            : $renderingContext->getRequest();
+
+        if (!$request instanceof RequestInterface) {
             return '';
         }
 
@@ -87,7 +94,6 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
         $childContent = (string) $this->renderChildren();
 
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-        // @phpstan-ignore-next-line
         $uriBuilder->setRequest($request);
 
         if (!empty($this->arguments['pageUid'])) {
