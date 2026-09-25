@@ -8,7 +8,7 @@ Kitodo.Presentation: a TYPO3 extension (extension key `dlf`, PSR-4 `Kitodo\Dlf\`
 - Unit tests (Docker): `composer test:unit`; locally: `composer test:unit:local` (or `vendor/bin/phpunit -c Build/Test/UnitTests.xml`, add `--filter <name>` for one test)
 - Functional tests **only run in Docker** (need MariaDB/Solr containers): `composer test:func` or `Build/Test/runTests.sh -s functional`; `-w` for watch mode. Options: `Build/Test/runTests.sh -h`
 - Fixtures for functional tests live in `Tests/Fixtures/`; use distinct, greppable 9-digit `uid`s (`rand(100000000, 999999999)`)
-- Static analysis: `composer phpstan` (hardwired to `.github/phpstan_13.4.neon`; CI runs one neon per TYPO3 version: `.github/phpstan_{12.4,13.4,14.3}.neon`, e.g. `vendor/bin/phpstan --configuration=.github/phpstan_14.3.neon`)
+- Static analysis: `composer phpstan` (hardwired to `.github/phpstan_13.4.neon`; CI runs one neon per TYPO3 version: `.github/phpstan_{12.4,13.4,14.3}.neon`, e.g. `vendor/bin/phpstan --configuration=.github/phpstan_14.3.neon`). To reproduce a CI PHPStan job locally (installs the right TYPO3 + runs that version's neon, exactly like the workflow), use `Build/Test/runPhpstan.sh -t <12.4|13.4|14.3>` — note it does a `composer update` for 13.4/14.3, so it rewrites `composer.lock`/`vendor`; restore them (`git checkout composer.lock && composer install`) afterwards if you don't want to keep the switch.
 - Code style: `composer php-cs-fixer:check` / `composer php-cs-fixer:fix`
 - Since TYPO3 14, `AbstractViewHelper::render()` is abstract: ViewHelpers that only define `renderStatic()` must also implement a non-static `render()` delegating to it. A duplicated `render()` in one class is a PHP fatal ("Cannot redeclare") that 500s every request rendering that ViewHelper
 
