@@ -45,9 +45,14 @@ foreach ($iconArray as $key => $value) {
     );
 }
 // Register plugins as content elements.
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:dlf/Configuration/TsConfig/ContentElements.tsconfig">'
-);
+// Use $GLOBALS['TYPO3_CONF_VARS']['SYS']['defaultPageTSconfig'] for TYPO3 13+
+// as ExtensionManagementUtility::addPageTSConfig() was removed in TYPO3 14.
+if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['defaultPageTSconfig'])) {
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['defaultPageTSconfig'] = '';
+}
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['defaultPageTSconfig'] .= '
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:dlf/Configuration/TsConfig/ContentElements.tsconfig">
+';
 $_EXTKEY = 'dlf';
 // Register tools for toolbox plugin.
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['dlf/Classes/Plugin/Toolbox.php']['tools'] = [];
@@ -63,8 +68,9 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['dlf/Classes/Plugin/Toolbox.php']['too
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['dlf/Classes/Plugin/Toolbox.php']['tools'][\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getCN($_EXTKEY) . '_pdfdownloadtool'] = 'LLL:EXT:dlf/Resources/Private/Language/locallang_labels.xlf:tx_dlf_toolbox.pdfdownloadtool';
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['dlf/Classes/Plugin/Toolbox.php']['tools'][\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getCN($_EXTKEY) . '_searchindocumenttool'] = 'LLL:EXT:dlf/Resources/Private/Language/locallang_labels.xlf:tx_dlf_toolbox.searchindocumenttool';
 // Register hooks.
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = \Kitodo\Dlf\Hooks\DataHandler::class;
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = \Kitodo\Dlf\Hooks\DataHandler::class;
+// Use DataHandler::class instead of legacy t3lib path for TYPO3 12+ (t3lib removed in TYPO3 13/14).
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Core\DataHandling\DataHandler::class]['processDatamapClass'][] = \Kitodo\Dlf\Hooks\DataHandler::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Core\DataHandling\DataHandler::class]['processCmdmapClass'][] = \Kitodo\Dlf\Hooks\DataHandler::class;
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['dlf/Classes/Common/MetsDocument.php']['hookClass'][] = \Kitodo\Dlf\Hooks\KitodoProductionHacks::class;
 // Register scheduler tasks
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Kitodo\Dlf\Task\IndexTask::class] = [
