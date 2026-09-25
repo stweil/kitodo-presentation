@@ -14,7 +14,6 @@ namespace Kitodo\Dlf\ViewHelpers;
  * LICENSE.txt file that was distributed with this source code.
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\RequestContext;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 use TYPO3\CMS\Frontend\Routing\UriBuilder as FrontendUriBuilder;
@@ -46,7 +45,7 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
         /** @var RenderingContext $renderingContext */
         $renderingContext = $this->renderingContext;
 
-        $request = GeneralUtility::makeInstance(RequestContext::class)->getRequest();
+        $request = $renderingContext->getRequest();
         if ($request === null) {
             return '';
         }
@@ -85,9 +84,7 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
         }
 
         $childContent = (string) $this->renderChildren();
-
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-        // @phpstan-ignore-next-line
         $uriBuilder->setRequest($request);
 
         if (!empty($this->arguments['pageUid'])) {

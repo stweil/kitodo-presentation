@@ -12,12 +12,6 @@ parameters:
     -
       message: '#Call to an undefined method TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController::releaseLocks\(\)\.#'
       path: ../Classes/Common/TypoScriptHelper.php
-    -
-      message: '#PHPDoc tag @var for variable \$action contains unknown class TYPO3\\CMS\\Scheduler\\Task\\Enumeration\\Action\.#'
-      path: ../Classes/Task/BaseAdditionalFieldProvider.php
-    -
-      message: '#Access to constant EDIT on an unknown class TYPO3\\CMS\\Scheduler\\Task\\Enumeration\\Action\.#'
-      path: ../Classes/Task/BaseAdditionalFieldProvider.php
   level: 7
   paths:
     - ../Classes
