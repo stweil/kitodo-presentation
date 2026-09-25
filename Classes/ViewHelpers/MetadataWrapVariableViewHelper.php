@@ -54,11 +54,14 @@ class MetadataWrapVariableViewHelper extends AbstractViewHelper
         $this->registerArgument('name', 'string', 'Name of variable to create', true);
     }
 
+    /**
+     * @return void
+     */
     public function render(): void
     {
         self::renderStatic(
             $this->arguments,
-            $this->renderChildrenClosure,
+            $this->renderChildrenClosure ?? function() { return ''; },
             $this->renderingContext
         );
     }
@@ -89,17 +92,5 @@ class MetadataWrapVariableViewHelper extends AbstractViewHelper
             'all' => $setup['all.'] ?? [],
         ];
         $renderingContext->getVariableProvider()->add($arguments['name'], $wrap);
-    }
-
-    /**
-     * @return void
-     */
-    public function render(): void
-    {
-        self::renderStatic(
-            $this->arguments,
-            $this->renderChildrenClosure ?? function() { return ''; },
-            $this->renderingContext
-        );
     }
 }
