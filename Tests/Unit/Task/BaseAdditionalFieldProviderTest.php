@@ -39,10 +39,10 @@ class BaseAdditionalFieldProviderTest extends UnitTestCase
     }
 }
 
-enum DummySchedulerAction
+enum DummySchedulerAction: string
 {
-    case ADD;
-    case EDIT;
+    case ADD = 'add';
+    case EDIT = 'edit';
 }
 
 final class LegacySchedulerAction

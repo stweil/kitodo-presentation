@@ -374,8 +374,8 @@ class BaseAdditionalFieldProvider implements AdditionalFieldProviderInterface
      */
     protected function isEditSchedulerAction(mixed $action): bool
     {
-        if ($action instanceof \UnitEnum) {
-            return $action->name === 'EDIT';
+        if ($action instanceof \BackedEnum) {
+            return $action->name === 'EDIT' && $action->value === 'edit';
         }
 
         return is_object($action)
