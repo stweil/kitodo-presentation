@@ -54,15 +54,6 @@ class MetadataWrapVariableViewHelper extends AbstractViewHelper
         $this->registerArgument('name', 'string', 'Name of variable to create', true);
     }
 
-    public function render(): void
-    {
-        self::renderStatic(
-            $this->arguments,
-            $this->renderChildrenClosure,
-            $this->renderingContext
-        );
-    }
-
     /**
      * @access public
      *
