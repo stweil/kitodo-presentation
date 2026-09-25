@@ -71,9 +71,9 @@ services:
           set -x
         fi
         if [ \"${TYPO3_VERSION}\" = \"12.4\" ]; then
-          cp composer.lock.v12 composer.lock
+          cp composer.lock.v12 composer.lock;
         fi
-        if [ -z ${TYPO3_VERSION} ]; then
+        if [ -z ${TYPO3_VERSION} ] || [ \"${TYPO3_VERSION}\" = \"12.4\" ]; then
           composer install --no-progress --no-blocking --no-interaction;
         else
           composer update --with=typo3/cms-core:^${TYPO3_VERSION} --no-progress --no-blocking --no-interaction;
