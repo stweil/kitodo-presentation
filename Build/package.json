@@ -50,7 +50,7 @@
     "less-loader": "^12.2.0",
     "mini-css-extract-plugin": "^2.9.0",
     "typescript": "^5.6",
-    "webpack": "^5.105.0",
+    "webpack": "^5.111.1",
     "webpack-cli": "^7.2.3",
     "webpack-dev-server": "^5.2.6",
     "webpack-remove-empty-scripts": "^1.0.4"
